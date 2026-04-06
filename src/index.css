@@ -1,12 +1,18 @@
 @import "tailwindcss";
 
 :root {
+  /* Third Horizon Brand Colors */
+  --th-dark-blue: #224057;
+  --th-medium-blue: #234D8B;
+  --th-gold: #F8C762;
+  --th-gray: #6F7072;
+  --th-light-blue-bg: #E8F0F8;
+
+  /* Legacy AHA vars kept for compatibility */
   --aha-red: #C8102E;
-  --aha-red-light: #E8394F;
-  --aha-red-dark: #A00D24;
   --aha-white: #FFFFFF;
   --aha-dark: #1A1A1A;
-  --aha-gray: #6B7280;
+  --aha-gray: #6F7072;
   --aha-gray-light: #F3F4F6;
 }
 
@@ -17,10 +23,10 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: #FAFAFA;
-  color: var(--aha-dark);
-  line-height: 1.6;
+  color: var(--th-gray);
+  line-height: 1.7;
 }
 
 /* Custom scrollbar */
@@ -33,12 +39,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--aha-gray);
+  background: var(--th-dark-blue);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--aha-red);
+  background: var(--th-medium-blue);
 }
 
 /* Animations */
@@ -59,7 +65,7 @@ body {
 }
 
 .rsm-geography:hover {
-  stroke: var(--aha-red);
+  stroke: var(--th-gold);
   stroke-width: 2;
 }
 
@@ -68,8 +74,8 @@ input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 8px;
-  background: #E5E7EB;
+  height: 6px;
+  background: #D1DBE8;
   border-radius: 4px;
   outline: none;
 }
@@ -77,23 +83,31 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
-  background: var(--aha-red);
+  width: 18px;
+  height: 18px;
+  background: var(--th-medium-blue);
   border-radius: 50%;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 4px rgba(34, 64, 87, 0.3);
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  box-shadow: 0 2px 8px rgba(34, 64, 87, 0.4);
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  background: var(--aha-red);
+  width: 18px;
+  height: 18px;
+  background: var(--th-medium-blue);
   border-radius: 50%;
   cursor: pointer;
   border: none;
+}
+
+/* Gold divider utility */
+.th-divider {
+  border-color: var(--th-gold);
+  border-top-width: 2px;
 }
