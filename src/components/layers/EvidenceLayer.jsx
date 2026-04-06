@@ -17,7 +17,7 @@ const keyFindings = [
     source: 'CAC Consortium, JAMA Cardiology 2018'
   },
   {
-    stat: '$75–$400',
+    stat: '$75-$400',
     description: 'typical out-of-pocket cost where CAC scoring is not covered by insurance',
     source: 'Healthcare Bluebook, 2024'
   }
@@ -56,6 +56,259 @@ const qaData = [
   }
 ]
 
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '48px'
+  },
+  sectionHeader: {
+    marginBottom: '0'
+  },
+  sectionTitle: {
+    fontSize: '24px',
+    fontWeight: '700',
+    color: '#1A1A1A',
+    marginBottom: '12px'
+  },
+  sectionAccent: {
+    width: '48px',
+    height: '3px',
+    backgroundColor: '#C8102E',
+    marginBottom: '16px'
+  },
+  sectionSubtitle: {
+    fontSize: '16px',
+    color: '#6B7280',
+    lineHeight: '1.6'
+  },
+  card: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: '12px',
+    border: '1px solid #E5E7EB',
+    padding: '32px',
+    boxShadow: '0 1px 4px rgba(0,0,0,0.08)'
+  },
+  cardHeader: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    marginBottom: '24px'
+  },
+  cardTitle: {
+    fontSize: '18px',
+    fontWeight: '600',
+    color: '#1A1A1A'
+  },
+  badge: {
+    padding: '6px 12px',
+    borderRadius: '999px',
+    fontSize: '11px',
+    fontWeight: '600',
+    letterSpacing: '0.5px',
+    backgroundColor: '#E8F5EE',
+    color: '#1A7A4A'
+  },
+  cardText: {
+    fontSize: '15px',
+    color: '#4A5568',
+    lineHeight: '1.75',
+    marginBottom: '20px'
+  },
+  cardFooter: {
+    borderTop: '1px solid #F3F4F6',
+    paddingTop: '20px',
+    marginTop: '12px'
+  },
+  methodology: {
+    fontSize: '12px',
+    color: '#9CA3AF'
+  },
+  confidenceBox: {
+    backgroundColor: '#E8F5EE',
+    border: '1px solid #A8DFC0',
+    borderRadius: '12px',
+    padding: '24px',
+    display: 'flex',
+    gap: '16px'
+  },
+  confidenceIcon: {
+    flexShrink: 0,
+    marginTop: '2px'
+  },
+  confidenceTitle: {
+    fontSize: '15px',
+    fontWeight: '600',
+    color: '#155E3B',
+    marginBottom: '8px'
+  },
+  confidenceText: {
+    fontSize: '14px',
+    color: '#1A7A4A',
+    lineHeight: '1.7'
+  },
+  divider: {
+    height: '1px',
+    backgroundColor: '#C8102E',
+    opacity: 0.2
+  },
+  findingsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '24px'
+  },
+  findingCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: '12px',
+    border: '1px solid #E5E7EB',
+    padding: '32px',
+    boxShadow: '0 1px 4px rgba(0,0,0,0.08)'
+  },
+  findingStat: {
+    fontSize: '36px',
+    fontWeight: '700',
+    color: '#C8102E',
+    marginBottom: '12px'
+  },
+  findingDesc: {
+    fontSize: '15px',
+    color: '#4A5568',
+    lineHeight: '1.6',
+    marginBottom: '16px'
+  },
+  findingSource: {
+    fontSize: '12px',
+    color: '#9CA3AF'
+  },
+  citationsBox: {
+    backgroundColor: '#F5F5F5',
+    borderRadius: '12px',
+    border: '1px solid #E5E7EB',
+    padding: '32px'
+  },
+  citationsTitle: {
+    fontSize: '16px',
+    fontWeight: '600',
+    color: '#1A1A1A',
+    marginBottom: '20px'
+  },
+  citationsList: {
+    listStyle: 'none',
+    padding: 0,
+    margin: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px'
+  },
+  citation: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '8px',
+    fontSize: '14px',
+    color: '#4A5568',
+    lineHeight: '1.6'
+  },
+  citationNumber: {
+    fontWeight: '500',
+    color: '#C8102E'
+  },
+  qaCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: '12px',
+    border: '1px solid #E5E7EB',
+    overflow: 'hidden',
+    boxShadow: '0 1px 4px rgba(0,0,0,0.08)'
+  },
+  qaHeader: {
+    backgroundColor: '#FFF5F5',
+    borderBottom: '2px solid #C8102E',
+    padding: '20px 24px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px'
+  },
+  qaHeaderTitle: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#C8102E'
+  },
+  qaHeaderSubtitle: {
+    fontSize: '12px',
+    color: '#6B7280'
+  },
+  qaBody: {
+    padding: '32px'
+  },
+  searchInput: {
+    width: '100%',
+    padding: '14px 48px 14px 16px',
+    borderRadius: '8px',
+    border: '1px solid #E5E7EB',
+    fontSize: '14px',
+    color: '#1A1A1A',
+    outline: 'none',
+    backgroundColor: '#FFFFFF'
+  },
+  searchWrapper: {
+    position: 'relative'
+  },
+  searchIcon: {
+    position: 'absolute',
+    right: '16px',
+    top: '50%',
+    transform: 'translateY(-50%)'
+  },
+  qaResult: {
+    marginTop: '20px',
+    backgroundColor: '#FFF5F5',
+    border: '1px solid #FECDD3',
+    borderRadius: '8px',
+    padding: '20px'
+  },
+  qaQuestion: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#1A1A1A',
+    marginBottom: '8px'
+  },
+  qaAnswer: {
+    fontSize: '14px',
+    color: '#4A5568',
+    lineHeight: '1.7'
+  },
+  qaHint: {
+    marginTop: '20px',
+    backgroundColor: '#F5F5F5',
+    borderRadius: '8px',
+    padding: '16px'
+  },
+  qaHintText: {
+    fontSize: '14px',
+    color: '#6B7280'
+  },
+  quickTopics: {
+    marginTop: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '8px'
+  },
+  quickTopicsLabel: {
+    fontSize: '12px',
+    color: '#9CA3AF'
+  },
+  quickTopicBtn: {
+    fontSize: '12px',
+    padding: '6px 12px',
+    borderRadius: '999px',
+    backgroundColor: '#F5F5F5',
+    color: '#C8102E',
+    border: '1px solid #E5E7EB',
+    cursor: 'pointer',
+    transition: 'background-color 0.2s'
+  }
+}
+
 function EvidenceLayer() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedQA, setSelectedQA] = useState(null)
@@ -75,32 +328,27 @@ function EvidenceLayer() {
   }
 
   return (
-    <div className="space-y-12">
+    <div style={styles.container}>
       {/* Section Header */}
-      <div>
-        <h2 className="text-2xl font-bold mb-3" style={{ color: '#1A1A1A' }}>What does the science say?</h2>
-        <div style={{ height: '3px', width: '48px', backgroundColor: '#C8102E', marginBottom: '16px' }}></div>
-        <p style={{ color: '#6B7280' }}>Synthesized evidence base for coronary artery calcium scoring in cardiovascular risk assessment</p>
+      <div style={styles.sectionHeader}>
+        <h2 style={styles.sectionTitle}>What does the science say?</h2>
+        <div style={styles.sectionAccent}></div>
+        <p style={styles.sectionSubtitle}>Synthesized evidence base for coronary artery calcium scoring in cardiovascular risk assessment</p>
       </div>
 
       {/* Clinical Summary Card */}
-      <div className="bg-white rounded-lg border p-8" style={{ borderColor: '#E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-        <div className="flex items-start justify-between mb-6">
-          <h3 className="text-lg font-semibold" style={{ color: '#1A1A1A' }}>Clinical Summary</h3>
-          <span
-            className="px-3 py-1 rounded-full text-xs font-semibold tracking-wide"
-            style={{ backgroundColor: '#E8F5EE', color: '#1A7A4A' }}
-          >
-            HIGH CONFIDENCE
-          </span>
+      <div style={styles.card}>
+        <div style={styles.cardHeader}>
+          <h3 style={styles.cardTitle}>Clinical Summary</h3>
+          <span style={styles.badge}>HIGH CONFIDENCE</span>
         </div>
-        <p className="leading-relaxed mb-5" style={{ color: '#4A5568' }}>
+        <p style={styles.cardText}>
           Coronary artery calcium (CAC) scoring is a non-invasive CT-based imaging technique that quantifies
           calcified atherosclerotic plaque in the coronary arteries. The Agatston score, developed in 1990,
           remains the standard measurement approach. CAC scoring provides incremental prognostic value beyond
           traditional risk factors for predicting coronary heart disease events.
         </p>
-        <p className="leading-relaxed" style={{ color: '#4A5568' }}>
+        <p style={styles.cardText}>
           The primary clinical utility of CAC scoring lies in refining risk estimates for patients at
           intermediate risk (10-20% 10-year ASCVD risk) where the decision to initiate statin therapy is
           uncertain. A CAC score of 0 is associated with very low near-term risk and may support deferring
@@ -108,8 +356,8 @@ function EvidenceLayer() {
           initiating therapy in patients who are hesitant. The 2019 ACC/AHA Primary Prevention Guidelines
           endorse CAC scoring as a reasonable option (Class IIa) for shared decision-making in this population.
         </p>
-        <div className="mt-8 pt-5" style={{ borderTop: '1px solid #F3F4F6' }}>
-          <p className="text-xs" style={{ color: '#9BAABB' }}>
+        <div style={styles.cardFooter}>
+          <p style={styles.methodology}>
             <strong>Methodology:</strong> Analysis synthesized from peer-reviewed literature and AHA/ACC prevention
             guidelines. Key sources include the Multi-Ethnic Study of Atherosclerosis (MESA), CAC Consortium pooled
             analyses, and 2019 ACC/AHA Primary Prevention Guidelines.
@@ -118,126 +366,112 @@ function EvidenceLayer() {
       </div>
 
       {/* Confidence Rating */}
-      <div className="rounded-lg p-6" style={{ backgroundColor: '#E8F5EE', border: '1px solid #A8DFC0' }}>
-        <div className="flex items-start space-x-4">
-          <div className="flex-shrink-0 mt-0.5">
-            <svg className="w-5 h-5" fill="none" stroke="#1A7A4A" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-2" style={{ color: '#155E3B' }}>High Confidence Rating</h4>
-            <p className="text-sm leading-relaxed" style={{ color: '#1A7A4A' }}>
-              This evidence base is supported by multiple large, well-conducted prospective cohort studies,
-              pooled analyses, and randomized trial data. The clinical utility of CAC scoring for risk
-              reclassification is well-established in the literature and endorsed by major cardiovascular
-              professional societies.
-            </p>
-          </div>
+      <div style={styles.confidenceBox}>
+        <div style={styles.confidenceIcon}>
+          <svg width="20" height="20" fill="none" stroke="#1A7A4A" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div>
+          <h4 style={styles.confidenceTitle}>High Confidence Rating</h4>
+          <p style={styles.confidenceText}>
+            This evidence base is supported by multiple large, well-conducted prospective cohort studies,
+            pooled analyses, and randomized trial data. The clinical utility of CAC scoring for risk
+            reclassification is well-established in the literature and endorsed by major cardiovascular
+            professional societies.
+          </p>
         </div>
       </div>
 
-      {/* Red Divider */}
-      <div style={{ height: '1px', backgroundColor: '#C8102E', opacity: 0.2 }}></div>
+      {/* Divider */}
+      <div style={styles.divider}></div>
 
       {/* Key Research Findings */}
       <div>
-        <h3 className="text-lg font-semibold mb-8" style={{ color: '#1A1A1A' }}>Key Research Findings</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h3 style={{ ...styles.sectionTitle, fontSize: '18px', marginBottom: '32px' }}>Key Research Findings</h3>
+        <div style={styles.findingsGrid}>
           {keyFindings.map((finding, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg p-8 transition-shadow hover:shadow-md"
-              style={{ border: '1px solid #E5E7EB', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}
-            >
-              <div className="text-4xl font-bold mb-3" style={{ color: '#C8102E' }}>{finding.stat}</div>
-              <p className="mb-4 leading-relaxed" style={{ color: '#4A5568' }}>{finding.description}</p>
-              <p className="text-xs" style={{ color: '#9BAABB' }}>{finding.source}</p>
+            <div key={index} style={styles.findingCard}>
+              <div style={styles.findingStat}>{finding.stat}</div>
+              <p style={styles.findingDesc}>{finding.description}</p>
+              <p style={styles.findingSource}>{finding.source}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Red Divider */}
-      <div style={{ height: '1px', backgroundColor: '#C8102E', opacity: 0.2 }}></div>
+      {/* Divider */}
+      <div style={styles.divider}></div>
 
       {/* Citations */}
-      <div className="rounded-lg p-8" style={{ backgroundColor: '#F8F8F8', border: '1px solid #E5E7EB' }}>
-        <h3 className="text-base font-semibold mb-5" style={{ color: '#1A1A1A' }}>Selected Citations</h3>
-        <ul className="space-y-4 text-sm" style={{ color: '#4A5568' }}>
-          <li className="flex items-start">
-            <span className="mr-2 font-medium" style={{ color: '#C8102E' }}>1.</span>
-            Blaha MJ, et al. "Role of Coronary Artery Calcium Score in the Evaluation of Patients With
-            Chest Pain." <em>JACC Cardiovasc Imaging</em>. 2015;8(2):134-142.
+      <div style={styles.citationsBox}>
+        <h3 style={styles.citationsTitle}>Selected Citations</h3>
+        <ul style={styles.citationsList}>
+          <li style={styles.citation}>
+            <span style={styles.citationNumber}>1.</span>
+            <span>Blaha MJ, et al. "Role of Coronary Artery Calcium Score in the Evaluation of Patients With
+            Chest Pain." <em>JACC Cardiovasc Imaging</em>. 2015;8(2):134-142.</span>
           </li>
-          <li className="flex items-start">
-            <span className="mr-2 font-medium" style={{ color: '#C8102E' }}>2.</span>
-            Budoff MJ, et al. "Ten-year association of coronary artery calcium with atherosclerotic
-            cardiovascular disease events: MESA." <em>J Am Coll Cardiol</em>. 2018;72(23):2839-2850.
+          <li style={styles.citation}>
+            <span style={styles.citationNumber}>2.</span>
+            <span>Budoff MJ, et al. "Ten-year association of coronary artery calcium with atherosclerotic
+            cardiovascular disease events: MESA." <em>J Am Coll Cardiol</em>. 2018;72(23):2839-2850.</span>
           </li>
-          <li className="flex items-start">
-            <span className="mr-2 font-medium" style={{ color: '#C8102E' }}>3.</span>
-            Arnett DK, et al. "2019 ACC/AHA Guideline on the Primary Prevention of Cardiovascular
-            Disease." <em>Circulation</em>. 2019;140(11):e596-e646.
+          <li style={styles.citation}>
+            <span style={styles.citationNumber}>3.</span>
+            <span>Arnett DK, et al. "2019 ACC/AHA Guideline on the Primary Prevention of Cardiovascular
+            Disease." <em>Circulation</em>. 2019;140(11):e596-e646.</span>
           </li>
-          <li className="flex items-start">
-            <span className="mr-2 font-medium" style={{ color: '#C8102E' }}>4.</span>
-            Mitchell JD, et al. "Impact of Coronary Artery Calcium on Clinical Management and Outcomes
-            in Patients Referred for CAC Testing." <em>JAMA Cardiol</em>. 2017;2(8):1-9.
+          <li style={styles.citation}>
+            <span style={styles.citationNumber}>4.</span>
+            <span>Mitchell JD, et al. "Impact of Coronary Artery Calcium on Clinical Management and Outcomes
+            in Patients Referred for CAC Testing." <em>JAMA Cardiol</em>. 2017;2(8):1-9.</span>
           </li>
         </ul>
       </div>
 
       {/* Evidence Q&A Box */}
-      <div className="bg-white rounded-lg overflow-hidden" style={{ border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-        <div className="px-6 py-5" style={{ backgroundColor: '#FFF5F5', borderBottom: '2px solid #C8102E' }}>
-          <div className="flex items-center space-x-3">
-            <svg className="w-5 h-5" fill="none" stroke="#C8102E" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <div>
-              <h3 className="font-semibold text-sm" style={{ color: '#C8102E' }}>Evidence-Based Q&amp;A</h3>
-              <p className="text-xs" style={{ color: '#6B7280' }}>Powered by Claude Haiku — Live AI responses available in full deployment</p>
-            </div>
+      <div style={styles.qaCard}>
+        <div style={styles.qaHeader}>
+          <svg width="20" height="20" fill="none" stroke="#C8102E" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div>
+            <h3 style={styles.qaHeaderTitle}>Evidence-Based Q&amp;A</h3>
+            <p style={styles.qaHeaderSubtitle}>Powered by Claude Haiku - Live AI responses available in full deployment</p>
           </div>
         </div>
-        <div className="p-8">
-          <div className="relative">
+        <div style={styles.qaBody}>
+          <div style={styles.searchWrapper}>
             <input
               type="text"
               placeholder="Ask about CAC scoring (try: 'who is eligible' or 'radiation risk')"
               value={searchTerm}
               onChange={handleSearch}
-              className="w-full px-4 py-3 rounded text-sm"
-              style={{
-                border: '1px solid #E5E7EB',
-                outline: 'none',
-                backgroundColor: 'white',
-                color: '#1A1A1A'
-              }}
+              style={styles.searchInput}
             />
-            <svg className="w-4 h-4 absolute right-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="#9BAABB" viewBox="0 0 24 24">
+            <svg style={styles.searchIcon} width="16" height="16" fill="none" stroke="#9CA3AF" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
 
           {selectedQA && (
-            <div className="mt-5 rounded-lg p-5 animate-fade-in" style={{ backgroundColor: '#FFF5F5', border: '1px solid #FECDD3' }}>
-              <p className="font-semibold mb-2 text-sm" style={{ color: '#1A1A1A' }}>{selectedQA.question}</p>
-              <p className="text-sm leading-relaxed" style={{ color: '#4A5568' }}>{selectedQA.answer}</p>
+            <div style={styles.qaResult} className="animate-fade-in">
+              <p style={styles.qaQuestion}>{selectedQA.question}</p>
+              <p style={styles.qaAnswer}>{selectedQA.answer}</p>
             </div>
           )}
 
           {!selectedQA && searchTerm && (
-            <div className="mt-5 rounded-lg p-4" style={{ backgroundColor: '#F8F8F8' }}>
-              <p className="text-sm" style={{ color: '#6B7280' }}>
+            <div style={styles.qaHint}>
+              <p style={styles.qaHintText}>
                 Try searching for topics like "who is eligible", "radiation", "insurance coverage", "guideline recommendations", or "how to interpret scores".
               </p>
             </div>
           )}
 
-          <div className="mt-5 flex flex-wrap gap-2 items-center">
-            <span className="text-xs" style={{ color: '#9BAABB' }}>Quick topics:</span>
+          <div style={styles.quickTopics}>
+            <span style={styles.quickTopicsLabel}>Quick topics:</span>
             {['Patient eligibility', 'Radiation safety', 'Score interpretation', 'Insurance coverage', 'Guidelines'].map(topic => (
               <button
                 key={topic}
@@ -245,10 +479,7 @@ function EvidenceLayer() {
                   setSearchTerm(topic.toLowerCase())
                   setSelectedQA(findMatchingQA(topic.toLowerCase()))
                 }}
-                className="text-xs px-3 py-1 rounded-full transition-colors"
-                style={{ backgroundColor: '#F8F8F8', color: '#C8102E', border: '1px solid #E5E7EB' }}
-                onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#FFF5F5' }}
-                onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#F8F8F8' }}
+                style={styles.quickTopicBtn}
               >
                 {topic}
               </button>
