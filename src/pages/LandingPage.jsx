@@ -52,35 +52,41 @@ function LandingPage() {
   return (
     <div className="animate-fade-in">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#1A1A1A] via-[#2D2D2D] to-[#1A1A1A] text-white py-20 lg:py-28">
+      <section style={{ backgroundColor: '#224057' }} className="text-white py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl">
-            <div className="inline-flex items-center bg-[#C8102E]/20 border border-[#C8102E]/40 rounded-full px-4 py-1.5 mb-6">
-              <span className="text-[#C8102E] text-sm font-medium">AHA + Third Horizon Partnership</span>
+            <div
+              className="inline-flex items-center rounded-full px-4 py-1.5 mb-8"
+              style={{ backgroundColor: 'rgba(248,199,98,0.15)', border: '1px solid rgba(248,199,98,0.4)' }}
+            >
+              <span style={{ color: '#F8C762' }} className="text-sm font-medium tracking-wide">AHA + Third Horizon Partnership</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Solving the <span className="text-[#C8102E]">17-Year Problem</span>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-white tracking-tight">
+              Solving the{' '}
+              <span style={{ color: '#F8C762' }}>17-Year Problem</span>
             </h1>
-            <p className="text-xl lg:text-2xl text-gray-300 mb-8 leading-relaxed">
-              Evidence-based clinical guidelines take an average of 17 years to achieve widespread adoption. 
-              The Cardiovascular Prevention Index accelerates this timeline by combining 
-              <span className="text-white font-medium"> health plan transparency data</span>, 
-              <span className="text-white font-medium"> disease prevalence intelligence</span>, and 
-              <span className="text-white font-medium"> implementation science</span>.
+            <p className="text-xl lg:text-2xl mb-10 leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
+              Evidence-based clinical guidelines take an average of 17 years to achieve widespread adoption.
+              The Cardiovascular Prevention Index accelerates this timeline by combining{' '}
+              <span className="text-white font-medium">health plan transparency data</span>,{' '}
+              <span className="text-white font-medium">disease prevalence intelligence</span>, and{' '}
+              <span className="text-white font-medium">implementation science</span>.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link 
+              <Link
                 to="/cac-scoring"
-                className="inline-flex items-center justify-center bg-[#C8102E] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#A00D24] transition-colors"
+                style={{ backgroundColor: '#F8C762', color: '#224057' }}
+                className="inline-flex items-center justify-center px-8 py-4 rounded font-semibold text-base hover:opacity-90 transition-opacity"
               >
                 Explore CAC Scoring Index
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
-              <a 
+              <a
                 href="#ecosystem"
-                className="inline-flex items-center justify-center border-2 border-gray-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:border-gray-400 transition-colors"
+                style={{ border: '2px solid rgba(255,255,255,0.35)', color: 'white' }}
+                className="inline-flex items-center justify-center px-8 py-4 rounded font-semibold text-base hover:border-white/70 transition-colors"
               >
                 View All Guidelines
               </a>
@@ -89,10 +95,23 @@ function LandingPage() {
         </div>
       </section>
 
+      {/* Gold Divider */}
+      <div style={{ height: '3px', backgroundColor: '#F8C762' }}></div>
+
       {/* How It Works */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">A Four-Layer Intelligence Platform</h2>
+          <div className="mb-14">
+            <h2
+              className="text-3xl lg:text-4xl font-bold mb-3"
+              style={{ color: '#224057' }}
+            >
+              A Four-Layer Intelligence Platform
+            </h2>
+            <p style={{ color: '#6F7072' }} className="text-lg">
+              Each guideline follows the same rigorous framework — from evidence to action.
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { num: '1', title: 'Evidence Base', desc: 'Synthesized clinical research and guideline recommendations' },
@@ -100,12 +119,19 @@ function LandingPage() {
               { num: '3', title: 'Value Calculation', desc: 'Economic and social impact of closing adoption gaps' },
               { num: '4', title: 'Implementation Pathway', desc: 'Actionable roadmap for accelerating guideline adoption' }
             ].map((item) => (
-              <div key={item.num} className="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                <div className="w-12 h-12 bg-[#C8102E] text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
+              <div
+                key={item.num}
+                className="rounded-lg p-6"
+                style={{ backgroundColor: '#E8F0F8', border: '1px solid #D1DBE8' }}
+              >
+                <div
+                  className="w-10 h-10 rounded flex items-center justify-center text-lg font-bold mb-4 text-white"
+                  style={{ backgroundColor: '#224057' }}
+                >
                   {item.num}
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm">{item.desc}</p>
+                <h3 className="text-base font-semibold mb-2" style={{ color: '#224057' }}>{item.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: '#6F7072' }}>{item.desc}</p>
               </div>
             ))}
           </div>
@@ -113,66 +139,84 @@ function LandingPage() {
       </section>
 
       {/* Guidelines Grid */}
-      <section id="ecosystem" className="py-16 bg-gray-50">
+      <section id="ecosystem" style={{ backgroundColor: '#F5F8FB' }} className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Evidence-Based Guideline Ecosystem</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Each guideline in the Prevention Index follows the same four-layer framework. 
+          <div className="mb-14">
+            <h2
+              className="text-3xl lg:text-4xl font-bold mb-3"
+              style={{ color: '#224057' }}
+            >
+              Evidence-Based Guideline Ecosystem
+            </h2>
+            <p style={{ color: '#6F7072' }} className="text-lg max-w-2xl">
+              Each guideline in the Prevention Index follows the same four-layer framework.
               This scalable approach enables AHA to deploy comprehensive intelligence for every major clinical recommendation.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {guidelines.map((guideline) => (
-              <div 
+              <div
                 key={guideline.id}
-                className={`rounded-xl border-2 transition-all duration-300 ${
-                  guideline.active 
-                    ? 'bg-white border-[#C8102E] shadow-lg hover:shadow-xl' 
+                className="rounded-lg transition-all duration-300"
+                style={{
+                  backgroundColor: guideline.active ? 'white' : guideline.isFuture ? '#F5F8FB' : '#F5F8FB',
+                  border: guideline.active
+                    ? '2px solid #234D8B'
                     : guideline.isFuture
-                      ? 'bg-gray-100 border-dashed border-gray-300'
-                      : 'bg-gray-100 border-gray-200'
-                }`}
+                      ? '2px dashed #C8D8E8'
+                      : '1px solid #D1DBE8',
+                  boxShadow: guideline.active ? '0 4px 16px rgba(35,77,139,0.10)' : 'none'
+                }}
               >
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
-                    <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      guideline.active 
-                        ? 'bg-green-100 text-green-700' 
-                        : guideline.isFuture
-                          ? 'bg-purple-100 text-purple-700'
-                          : 'bg-gray-200 text-gray-500'
-                    }`}>
+                    <div
+                      className="px-3 py-1 rounded-full text-xs font-semibold tracking-wide"
+                      style={{
+                        backgroundColor: guideline.active ? '#E8F5EE' : guideline.isFuture ? '#EEE8F5' : '#E8EFF5',
+                        color: guideline.active ? '#1A7A4A' : guideline.isFuture ? '#5A3A8A' : '#6F7072'
+                      }}
+                    >
                       {guideline.active ? 'LIVE' : guideline.isFuture ? '2026' : 'COMING SOON'}
                     </div>
                     {guideline.active && (
-                      <svg className="w-6 h-6 text-[#C8102E]" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="#F8C762">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                       </svg>
                     )}
                   </div>
-                  <h3 className={`text-lg font-semibold mb-2 ${!guideline.active && 'text-gray-500'}`}>
+                  <h3
+                    className="text-base font-semibold mb-2"
+                    style={{ color: guideline.active ? '#224057' : '#9BAABB' }}
+                  >
                     {guideline.name}
                   </h3>
-                  <p className={`text-sm mb-4 ${guideline.active ? 'text-gray-600' : 'text-gray-400'}`}>
+                  <p
+                    className="text-sm mb-4 leading-relaxed"
+                    style={{ color: guideline.active ? '#6F7072' : '#9BAABB' }}
+                  >
                     {guideline.description}
                   </p>
-                  <div className={`text-sm font-medium mb-4 ${guideline.active ? 'text-[#C8102E]' : 'text-gray-400'}`}>
+                  <div
+                    className="text-sm font-medium mb-5"
+                    style={{ color: guideline.active ? '#234D8B' : '#9BAABB' }}
+                  >
                     {guideline.keyStat}
                   </div>
                   {guideline.active ? (
-                    <Link 
+                    <Link
                       to={guideline.path}
-                      className="inline-flex items-center text-[#C8102E] font-semibold hover:underline"
+                      style={{ color: '#234D8B' }}
+                      className="inline-flex items-center text-sm font-semibold hover:underline"
                     >
-                      Explore
+                      Explore Index
                       <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
                     </Link>
                   ) : (
-                    <span className="text-gray-400 text-sm">Coming in future release</span>
+                    <span className="text-xs" style={{ color: '#9BAABB' }}>Coming in future release</span>
                   )}
                 </div>
               </div>
@@ -181,27 +225,32 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* Vision Section */}
-      <section className="py-20 bg-[#C8102E] text-white">
+      {/* Gold Divider */}
+      <div style={{ height: '3px', backgroundColor: '#F8C762' }}></div>
+
+      {/* Vision CTA Section */}
+      <section style={{ backgroundColor: '#224057' }} className="py-24 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
             From 17 Years to 5 Years
           </h2>
-          <p className="text-xl text-red-100 mb-8 leading-relaxed">
-            By combining transparency data, prevalence intelligence, and implementation science, 
-            the Prevention Index creates a new paradigm for evidence-based guideline adoption. 
+          <p className="text-xl mb-10 leading-relaxed" style={{ color: 'rgba(255,255,255,0.72)' }}>
+            By combining transparency data, prevalence intelligence, and implementation science,
+            the Prevention Index creates a new paradigm for evidence-based guideline adoption.
             Each guideline in this ecosystem represents an opportunity to save lives sooner.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
+            <a
               href="mailto:david.smith@thirdhorizon.com?subject=Cardiovascular%20Prevention%20Index%20Partnership"
-              className="inline-flex items-center justify-center bg-white text-[#C8102E] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-red-50 transition-colors"
+              style={{ backgroundColor: '#F8C762', color: '#224057' }}
+              className="inline-flex items-center justify-center px-8 py-4 rounded font-semibold text-base hover:opacity-90 transition-opacity"
             >
               Partner With Us
             </a>
-            <Link 
+            <Link
               to="/cac-scoring"
-              className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/10 transition-colors"
+              style={{ border: '2px solid rgba(248,199,98,0.5)', color: 'white' }}
+              className="inline-flex items-center justify-center px-8 py-4 rounded font-semibold text-base hover:border-yellow-300/70 transition-colors"
             >
               See It In Action
             </Link>
@@ -212,19 +261,21 @@ function LandingPage() {
       {/* Partners */}
       <section id="about" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl font-bold mb-8 text-gray-800">Platform Partners</h2>
+          <h2 className="text-xl font-semibold mb-10 uppercase tracking-widest text-sm" style={{ color: '#9BAABB' }}>
+            Platform Partners
+          </h2>
           <div className="flex flex-col md:flex-row items-center justify-center gap-12">
             <div className="flex items-center space-x-3">
-              <svg className="w-10 h-10" viewBox="0 0 24 24" fill="#C8102E">
+              <svg className="w-9 h-9" viewBox="0 0 24 24" fill="#C8102E">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
               </svg>
-              <span className="text-xl font-semibold text-gray-800">American Heart Association</span>
+              <span className="text-lg font-semibold" style={{ color: '#224057' }}>American Heart Association</span>
             </div>
-            <div className="hidden md:block w-px h-12 bg-gray-200"></div>
-            <div className="text-xl font-semibold text-gray-800">Third Horizon Strategies</div>
+            <div style={{ backgroundColor: '#F8C762', width: '2px', height: '40px' }} className="hidden md:block"></div>
+            <div className="text-lg font-semibold" style={{ color: '#224057' }}>Third Horizon Strategies</div>
           </div>
-          <p className="mt-8 text-gray-500 text-sm max-w-xl mx-auto">
-            This is a prototype demonstration. All data shown is synthetic and for illustration purposes only. 
+          <p className="mt-10 text-sm max-w-xl mx-auto" style={{ color: '#9BAABB' }}>
+            This is a prototype demonstration. All data shown is synthetic and for illustration purposes only.
             Not intended for clinical decision-making.
           </p>
         </div>
