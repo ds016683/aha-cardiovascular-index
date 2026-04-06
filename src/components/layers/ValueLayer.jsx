@@ -10,7 +10,6 @@ function ValueLayer() {
   const [prevalence, setPrevalence] = useState(parseFloat(nationalStats.avgPrevalence))
   const [payerMix, setPayerMix] = useState({ commercial: 55, medicare: 35, medicaid: 10 })
 
-  // Update values when scope changes
   const handleScopeChange = (newScope) => {
     setScope(newScope)
     if (newScope === 'National') {
@@ -27,29 +26,24 @@ function ValueLayer() {
     }
   }
 
-  // Calculate outputs
   const calculations = useMemo(() => {
-    // Base calculation assumptions
     const atRiskPopulation = population * (prevalence / 100)
     const currentScreened = atRiskPopulation * (currentAdoption / 100)
     const targetScreened = atRiskPopulation * (targetAdoption / 100)
     const additionalScreened = targetScreened - currentScreened
-    
-    // CAC effectiveness assumptions
-    const riskReclassificationRate = 0.25  // 25% get reclassified
-    const maceReductionRate = 0.30         // 30% reduction in events for those appropriately treated
-    const baselineMaceRate = 0.08          // 8% 10-year MACE rate for intermediate risk
-    
-    // Economic assumptions
-    const costPerScan = 150                // Average cost per CAC scan
-    const costPerMaceEvent = 35000         // Average cost of MACE event
-    const qalyValuePerEvent = 0.3          // QALYs saved per event prevented
-    
-    // Calculations
+
+    const riskReclassificationRate = 0.25
+    const maceReductionRate = 0.30
+    const baselineMaceRate = 0.08
+
+    const costPerScan = 150
+    const costPerMaceEvent = 35000
+    const qalyValuePerEvent = 0.3
+
     const patientsReclassified = additionalScreened * riskReclassificationRate
     const potentialMaceEvents = additionalScreened * baselineMaceRate
     const eventsPrevented = potentialMaceEvents * maceReductionRate
-    
+
     const implementationCost = additionalScreened * costPerScan
     const savingsFromEventsPrevented = eventsPrevented * costPerMaceEvent
     const netSavings = savingsFromEventsPrevented - implementationCost
@@ -68,12 +62,11 @@ function ValueLayer() {
     }
   }, [population, prevalence, currentAdoption, targetAdoption])
 
-  // Chart data
   const chartData = [
-    { name: 'Current Burden', value: calculations.currentBurden / 1000000, fill: '#DC2626' },
-    { name: 'Implementation Cost', value: -calculations.implementationCost / 1000000, fill: '#F59E0B' },
-    { name: 'Events Prevented', value: calculations.totalSavings / 1000000, fill: '#10B981' },
-    { name: 'Net Savings', value: calculations.netSavings / 1000000, fill: '#C8102E' },
+    { name: 'Current Burden', value: calculations.currentBurden / 1000000, fill: '#9BAABB' },
+    { name: 'Implementation Cost', value: -calculations.implementationCost / 1000000, fill: '#F8C762' },
+    { name: 'Events Prevented', value: calculations.totalSavings / 1000000, fill: '#234D8B' },
+    { name: 'Net Savings', value: calculations.netSavings / 1000000, fill: '#224057' },
   ]
 
   const formatCurrency = (value) => {
@@ -125,26 +118,40 @@ For demonstration purposes only - synthetic data
     alert(assumptions)
   }
 
+  const inputStyle = {
+    border: '1px solid #D1DBE8',
+    borderRadius: '6px',
+    padding: '10px 14px',
+    fontSize: '14px',
+    color: '#224057',
+    outline: 'none',
+    width: '100%',
+    backgroundColor: 'white'
+  }
+
+  const labelStyle = { fontSize: '13px', fontWeight: '500', color: '#224057', marginBottom: '6px', display: 'block' }
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Section Header */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">What's the value of closing the gap?</h2>
-        <p className="text-gray-600">Economic and social value analysis of increasing CAC scoring adoption</p>
+        <h2 className="text-2xl font-bold mb-2" style={{ color: '#224057' }}>What's the value of closing the gap?</h2>
+        <div style={{ height: '2px', width: '48px', backgroundColor: '#F8C762', marginBottom: '12px' }}></div>
+        <p style={{ color: '#6F7072' }}>Economic and social value analysis of increasing CAC scoring adoption</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Input Controls */}
-        <div className="bg-white rounded-xl border shadow-sm p-6 space-y-6">
-          <h3 className="font-semibold text-gray-900 text-lg">Model Parameters</h3>
+        <div className="bg-white rounded-lg p-6 space-y-6" style={{ border: '1px solid #D1DBE8', boxShadow: '0 2px 8px rgba(34,64,87,0.07)' }}>
+          <h3 className="font-semibold text-base" style={{ color: '#224057' }}>Model Parameters</h3>
 
           {/* Geographic Scope */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Geographic Scope</label>
+            <label style={labelStyle}>Geographic Scope</label>
             <select
               value={scope}
               onChange={(e) => handleScopeChange(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C8102E] focus:border-transparent"
+              style={inputStyle}
             >
               <option value="National">National</option>
               {stateData.map(state => (
@@ -155,8 +162,9 @@ For demonstration purposes only - synthetic data
 
           {/* Current Adoption Rate */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Current Adoption Rate: <span className="text-[#C8102E] font-semibold">{currentAdoption}%</span>
+            <label style={labelStyle}>
+              Current Adoption Rate:{' '}
+              <span style={{ color: '#234D8B', fontWeight: '700' }}>{currentAdoption}%</span>
             </label>
             <input
               type="range"
@@ -166,7 +174,7 @@ For demonstration purposes only - synthetic data
               onChange={(e) => setCurrentAdoption(parseInt(e.target.value))}
               className="w-full"
             />
-            <div className="flex justify-between text-xs text-gray-400 mt-1">
+            <div className="flex justify-between text-xs mt-1" style={{ color: '#9BAABB' }}>
               <span>0%</span>
               <span>40%</span>
             </div>
@@ -174,8 +182,9 @@ For demonstration purposes only - synthetic data
 
           {/* Target Adoption Rate */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Target Adoption Rate: <span className="text-green-600 font-semibold">{targetAdoption}%</span>
+            <label style={labelStyle}>
+              Target Adoption Rate:{' '}
+              <span style={{ color: '#1A7A4A', fontWeight: '700' }}>{targetAdoption}%</span>
             </label>
             <input
               type="range"
@@ -185,7 +194,7 @@ For demonstration purposes only - synthetic data
               onChange={(e) => setTargetAdoption(parseInt(e.target.value))}
               className="w-full"
             />
-            <div className="flex justify-between text-xs text-gray-400 mt-1">
+            <div className="flex justify-between text-xs mt-1" style={{ color: '#9BAABB' }}>
               <span>0%</span>
               <span>60%</span>
             </div>
@@ -194,82 +203,66 @@ For demonstration purposes only - synthetic data
           {/* Population & Prevalence */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Eligible Population</label>
+              <label style={labelStyle}>Eligible Population</label>
               <input
                 type="number"
                 value={population}
                 onChange={(e) => setPopulation(parseInt(e.target.value) || 0)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                style={inputStyle}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">CVD Prevalence (%)</label>
+              <label style={labelStyle}>CVD Prevalence (%)</label>
               <input
                 type="number"
                 step="0.1"
                 value={prevalence}
                 onChange={(e) => setPrevalence(parseFloat(e.target.value) || 0)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                style={inputStyle}
               />
             </div>
           </div>
 
           {/* Payer Mix */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Payer Mix</label>
-            <div className="space-y-3">
+            <label style={{ ...labelStyle, marginBottom: '12px' }}>Payer Mix</label>
+            <div className="space-y-4">
+              {[
+                { key: 'commercial', label: 'Commercial', color: '#234D8B' },
+                { key: 'medicare', label: 'Medicare', color: '#224057' }
+              ].map(({ key, label, color }) => (
+                <div key={key}>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span style={{ color: '#6F7072' }}>{label}</span>
+                    <span className="font-semibold" style={{ color: '#224057' }}>{payerMix[key]}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max={key === 'medicare' ? 100 - payerMix.commercial : 100}
+                    value={payerMix[key]}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value)
+                      if (key === 'commercial') {
+                        const remaining = 100 - val
+                        setPayerMix({ commercial: val, medicare: Math.min(payerMix.medicare, remaining), medicaid: remaining - Math.min(payerMix.medicare, remaining) })
+                      } else {
+                        setPayerMix({ ...payerMix, medicare: val, medicaid: 100 - payerMix.commercial - val })
+                      }
+                    }}
+                    className="w-full"
+                  />
+                </div>
+              ))}
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-600">Commercial</span>
-                  <span className="font-medium">{payerMix.commercial}%</span>
+                  <span style={{ color: '#6F7072' }}>Medicaid</span>
+                  <span className="font-semibold" style={{ color: '#224057' }}>{payerMix.medicaid}%</span>
                 </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={payerMix.commercial}
-                  onChange={(e) => {
-                    const val = parseInt(e.target.value)
-                    const remaining = 100 - val
-                    setPayerMix({
-                      commercial: val,
-                      medicare: Math.min(payerMix.medicare, remaining),
-                      medicaid: remaining - Math.min(payerMix.medicare, remaining)
-                    })
-                  }}
-                  className="w-full h-2"
-                />
-              </div>
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-600">Medicare</span>
-                  <span className="font-medium">{payerMix.medicare}%</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max={100 - payerMix.commercial}
-                  value={payerMix.medicare}
-                  onChange={(e) => {
-                    const val = parseInt(e.target.value)
-                    setPayerMix({
-                      ...payerMix,
-                      medicare: val,
-                      medicaid: 100 - payerMix.commercial - val
-                    })
-                  }}
-                  className="w-full h-2"
-                />
-              </div>
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-600">Medicaid</span>
-                  <span className="font-medium">{payerMix.medicaid}%</span>
-                </div>
-                <div className="w-full h-2 bg-gray-200 rounded-full">
-                  <div 
-                    className="h-full bg-[#C8102E] rounded-full"
-                    style={{ width: `${payerMix.medicaid}%` }}
+                <div className="w-full rounded-full" style={{ height: '6px', backgroundColor: '#D1DBE8' }}>
+                  <div
+                    className="rounded-full"
+                    style={{ height: '6px', width: `${payerMix.medicaid}%`, backgroundColor: '#9BAABB' }}
                   ></div>
                 </div>
               </div>
@@ -281,40 +274,42 @@ For demonstration purposes only - synthetic data
         <div className="space-y-4">
           {/* Key Metrics Grid */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white rounded-xl border shadow-sm p-5">
-              <div className="text-sm text-gray-500 mb-1">Lives Impacted</div>
-              <div className="text-2xl font-bold text-gray-900">{calculations.livesImpacted.toLocaleString()}</div>
-            </div>
-            <div className="bg-white rounded-xl border shadow-sm p-5">
-              <div className="text-sm text-gray-500 mb-1">MACE Events Prevented</div>
-              <div className="text-2xl font-bold text-[#C8102E]">{calculations.eventsPrevented.toLocaleString()}</div>
-            </div>
-            <div className="bg-white rounded-xl border shadow-sm p-5">
-              <div className="text-sm text-gray-500 mb-1">Total Cost Savings</div>
-              <div className="text-2xl font-bold text-green-600">{formatCurrency(calculations.totalSavings)}</div>
-            </div>
-            <div className="bg-white rounded-xl border shadow-sm p-5">
-              <div className="text-sm text-gray-500 mb-1">Implementation Cost</div>
-              <div className="text-2xl font-bold text-amber-600">{formatCurrency(calculations.implementationCost)}</div>
-            </div>
-            <div className="bg-white rounded-xl border shadow-sm p-5">
-              <div className="text-sm text-gray-500 mb-1">ROI Ratio</div>
-              <div className="text-2xl font-bold text-purple-600">{calculations.roi}x</div>
-            </div>
-            <div className="bg-white rounded-xl border shadow-sm p-5">
-              <div className="text-sm text-gray-500 mb-1">QALYs Gained</div>
-              <div className="text-2xl font-bold text-blue-600">{calculations.qalys.toLocaleString()}</div>
-            </div>
+            {[
+              { label: 'Lives Impacted', value: calculations.livesImpacted.toLocaleString(), color: '#224057' },
+              { label: 'MACE Events Prevented', value: calculations.eventsPrevented.toLocaleString(), color: '#234D8B' },
+              { label: 'Total Cost Savings', value: formatCurrency(calculations.totalSavings), color: '#1A7A4A' },
+              { label: 'Implementation Cost', value: formatCurrency(calculations.implementationCost), color: '#7A6210' },
+              { label: 'ROI Ratio', value: `${calculations.roi}x`, color: '#234D8B' },
+              { label: 'QALYs Gained', value: calculations.qalys.toLocaleString(), color: '#224057' }
+            ].map((metric, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-lg p-5"
+                style={{ border: '1px solid #D1DBE8', boxShadow: '0 1px 4px rgba(34,64,87,0.06)' }}
+              >
+                <div className="text-xs mb-2" style={{ color: '#6F7072' }}>{metric.label}</div>
+                <div className="text-2xl font-bold" style={{ color: metric.color }}>{metric.value}</div>
+              </div>
+            ))}
           </div>
 
           {/* Net Savings Highlight */}
-          <div className={`rounded-xl p-6 ${calculations.netSavings >= 0 ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
-            <div className="text-sm text-gray-600 mb-1">Net Savings</div>
-            <div className={`text-4xl font-bold ${calculations.netSavings >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+          <div
+            className="rounded-lg p-6"
+            style={{
+              backgroundColor: calculations.netSavings >= 0 ? '#E8F5EE' : '#FEF0EE',
+              border: `1px solid ${calculations.netSavings >= 0 ? '#A8DFC0' : '#F5C6C0'}`
+            }}
+          >
+            <div className="text-sm mb-1" style={{ color: '#6F7072' }}>Net Savings</div>
+            <div
+              className="text-4xl font-bold mb-2"
+              style={{ color: calculations.netSavings >= 0 ? '#1A7A4A' : '#C0392B' }}
+            >
               {formatCurrency(calculations.netSavings)}
             </div>
-            <p className="text-sm text-gray-600 mt-2">
-              {calculations.netSavings >= 0 
+            <p className="text-sm leading-relaxed" style={{ color: '#6F7072' }}>
+              {calculations.netSavings >= 0
                 ? `For every dollar invested, ${calculations.roi}x is returned through prevented cardiac events.`
                 : 'Implementation cost exceeds projected savings at current parameters.'}
             </p>
@@ -323,23 +318,33 @@ For demonstration purposes only - synthetic data
       </div>
 
       {/* Chart Section */}
-      <div className="bg-white rounded-xl border shadow-sm p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">Value Flow Analysis</h3>
+      <div className="bg-white rounded-lg p-6" style={{ border: '1px solid #D1DBE8', boxShadow: '0 2px 8px rgba(34,64,87,0.07)' }}>
+        <h3 className="font-semibold mb-6" style={{ color: '#224057' }}>Value Flow Analysis</h3>
         <div style={{ height: '300px' }}>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} layout="vertical" margin={{ top: 20, right: 30, left: 120, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
-              <XAxis 
-                type="number" 
+            <BarChart data={chartData} layout="vertical" margin={{ top: 5, right: 30, left: 130, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#E8F0F8" />
+              <XAxis
+                type="number"
                 tickFormatter={(v) => `$${v}M`}
                 domain={['auto', 'auto']}
+                tick={{ fill: '#9BAABB', fontSize: 12 }}
+                axisLine={{ stroke: '#D1DBE8' }}
               />
-              <YAxis type="category" dataKey="name" tick={{ fontSize: 12 }} width={110} />
-              <Tooltip 
+              <YAxis
+                type="category"
+                dataKey="name"
+                tick={{ fill: '#224057', fontSize: 12, fontWeight: 500 }}
+                width={120}
+                axisLine={false}
+                tickLine={false}
+              />
+              <Tooltip
                 formatter={(value) => [`$${Math.abs(value).toFixed(1)}M`, '']}
-                contentStyle={{ borderRadius: '8px', border: '1px solid #E5E7EB' }}
+                contentStyle={{ borderRadius: '6px', border: '1px solid #D1DBE8', boxShadow: '0 4px 12px rgba(34,64,87,0.12)' }}
+                labelStyle={{ color: '#224057', fontWeight: 600 }}
               />
-              <ReferenceLine x={0} stroke="#9CA3AF" />
+              <ReferenceLine x={0} stroke="#D1DBE8" />
               <Bar dataKey="value" radius={[0, 4, 4, 0]}>
                 {chartData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.fill} />
@@ -354,9 +359,12 @@ For demonstration purposes only - synthetic data
       <div className="flex justify-center">
         <button
           onClick={handleDownloadAssumptions}
-          className="inline-flex items-center px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+          className="inline-flex items-center px-6 py-3 rounded font-medium text-sm transition-colors"
+          style={{ backgroundColor: '#E8F0F8', color: '#224057', border: '1px solid #D1DBE8' }}
+          onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#D1DBE8' }}
+          onMouseLeave={e => { e.currentTarget.style.backgroundColor = '#E8F0F8' }}
         >
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           Download Assumptions
@@ -364,9 +372,9 @@ For demonstration purposes only - synthetic data
       </div>
 
       {/* Methodology Note */}
-      <div className="bg-gray-50 rounded-xl p-6 text-sm text-gray-600">
-        <h4 className="font-semibold text-gray-900 mb-2">Methodology Notes</h4>
-        <ul className="space-y-1 list-disc list-inside">
+      <div className="rounded-lg p-6" style={{ backgroundColor: '#F5F8FB', border: '1px solid #D1DBE8' }}>
+        <h4 className="font-semibold mb-3" style={{ color: '#224057' }}>Methodology Notes</h4>
+        <ul className="space-y-1.5 text-sm list-disc list-inside" style={{ color: '#6F7072' }}>
           <li>Risk reclassification rate (25%) based on MESA and CAC Consortium studies</li>
           <li>MACE reduction (30%) assumes appropriate treatment of reclassified patients</li>
           <li>Baseline MACE rate (8% 10-year) reflects intermediate-risk population</li>
