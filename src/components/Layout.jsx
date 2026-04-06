@@ -80,7 +80,7 @@ function Layout() {
               </ul>
             </div>
           </div>
-          <div style={{ borderTopColor: 'rgba(248,199,98,0.25)' }} className="border-t mt-8 pt-8 text-center text-sm" style={{ borderTopColor: 'rgba(248,199,98,0.25)', color: 'rgba(255,255,255,0.4)' }}>
+          <div className="border-t mt-8 pt-8 text-center text-sm" style={{ borderTopColor: 'rgba(248,199,98,0.25)', color: 'rgba(255,255,255,0.4)' }}>
             <p>&copy; 2026 Cardiovascular Prevention Index. Prototype demonstration only.</p>
           </div>
         </div>
