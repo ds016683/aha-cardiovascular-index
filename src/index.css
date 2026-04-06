@@ -1,19 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  /* Third Horizon Brand Colors */
-  --th-dark-blue: #224057;
-  --th-medium-blue: #234D8B;
-  --th-gold: #F8C762;
-  --th-gray: #6F7072;
-  --th-light-blue-bg: #E8F0F8;
-
-  /* Legacy AHA vars kept for compatibility */
+  /* AHA Brand Colors */
   --aha-red: #C8102E;
   --aha-white: #FFFFFF;
   --aha-dark: #1A1A1A;
-  --aha-gray: #6F7072;
-  --aha-gray-light: #F3F4F6;
+  --aha-gray-mid: #6B7280;
+  --aha-gray-light: #F8F8F8;
 }
 
 * {
@@ -25,8 +18,8 @@
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: #FAFAFA;
-  color: var(--th-gray);
-  line-height: 1.7;
+  color: var(--aha-dark);
+  line-height: 1.75;
 }
 
 /* Custom scrollbar */
@@ -39,12 +32,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--th-dark-blue);
+  background: var(--aha-red);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--th-medium-blue);
+  background: #9B0E25;
 }
 
 /* Animations */
@@ -65,7 +58,7 @@ body {
 }
 
 .rsm-geography:hover {
-  stroke: var(--th-gold);
+  stroke: var(--aha-red);
   stroke-width: 2;
 }
 
@@ -75,7 +68,7 @@ input[type="range"] {
   appearance: none;
   width: 100%;
   height: 6px;
-  background: #D1DBE8;
+  background: #E5E7EB;
   border-radius: 4px;
   outline: none;
 }
@@ -85,29 +78,35 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: 18px;
   height: 18px;
-  background: var(--th-medium-blue);
+  background: var(--aha-red);
   border-radius: 50%;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 1px 4px rgba(34, 64, 87, 0.3);
+  box-shadow: 0 1px 4px rgba(200, 16, 46, 0.3);
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.15);
-  box-shadow: 0 2px 8px rgba(34, 64, 87, 0.4);
+  box-shadow: 0 2px 8px rgba(200, 16, 46, 0.4);
 }
 
 input[type="range"]::-moz-range-thumb {
   width: 18px;
   height: 18px;
-  background: var(--th-medium-blue);
+  background: var(--aha-red);
   border-radius: 50%;
   cursor: pointer;
   border: none;
 }
 
-/* Gold divider utility */
-.th-divider {
-  border-color: var(--th-gold);
+/* Section spacing utility */
+.section-gap {
+  margin-bottom: 3rem;
+}
+
+/* Red divider utility */
+.aha-divider {
+  border-color: var(--aha-red);
   border-top-width: 2px;
+  opacity: 0.2;
 }
