@@ -1,10 +1,9 @@
-import { useState, useEffect, memo } from 'react'
+import { useState, memo } from 'react'
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps'
 import { stateData, nationalStats, getAdoptionColor, getPrevalenceColor } from '../../data/syntheticStates'
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json"
 
-// State FIPS to abbreviation mapping
 const fipsToState = {
   '01': 'AL', '02': 'AK', '04': 'AZ', '05': 'AR', '06': 'CA',
   '08': 'CO', '09': 'CT', '10': 'DE', '11': 'DC', '12': 'FL',
@@ -20,7 +19,7 @@ const fipsToState = {
 }
 
 function ImplementationLayer() {
-  const [viewMode, setViewMode] = useState('adoption') // 'adoption' or 'prevalence'
+  const [viewMode, setViewMode] = useState('adoption')
   const [hoveredState, setHoveredState] = useState(null)
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
 
@@ -44,9 +43,8 @@ function ImplementationLayer() {
   const getColor = (geo) => {
     const stateCode = fipsToState[geo.id]
     const state = stateData.find(s => s.state_code === stateCode)
-    if (!state) return '#E5E7EB'
-    
-    return viewMode === 'adoption' 
+    if (!state) return '#D1DBE8'
+    return viewMode === 'adoption'
       ? getAdoptionColor(state.adoption_score)
       : getPrevalenceColor(state.prevalence_rate)
   }
@@ -55,39 +53,42 @@ function ImplementationLayer() {
   const bottomStates = [...stateData].sort((a, b) => a.adoption_score - b.adoption_score).slice(0, 5)
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Section Header */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Where does the country stand today?</h2>
-        <p className="text-gray-600">Geographic variation in CAC scoring adoption and cardiovascular disease prevalence</p>
+        <h2 className="text-2xl font-bold mb-2" style={{ color: '#224057' }}>Where does the country stand today?</h2>
+        <div style={{ height: '2px', width: '48px', backgroundColor: '#F8C762', marginBottom: '12px' }}></div>
+        <p style={{ color: '#6F7072' }}>Geographic variation in CAC scoring adoption and cardiovascular disease prevalence</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Map Section */}
-        <div className="lg:col-span-2 bg-white rounded-xl border shadow-sm overflow-hidden">
+        <div className="lg:col-span-2 bg-white rounded-lg overflow-hidden" style={{ border: '1px solid #D1DBE8', boxShadow: '0 2px 8px rgba(34,64,87,0.07)' }}>
           {/* View Toggle */}
-          <div className="border-b px-4 py-3 flex items-center justify-between bg-gray-50">
-            <span className="font-medium text-gray-700">
+          <div className="px-5 py-3 flex items-center justify-between" style={{ backgroundColor: '#E8F0F8', borderBottom: '1px solid #D1DBE8' }}>
+            <span className="font-medium text-sm" style={{ color: '#224057' }}>
               {viewMode === 'adoption' ? 'CAC Adoption Index' : 'CVD Prevalence Rate'}
             </span>
-            <div className="flex bg-gray-200 rounded-lg p-1">
+            <div className="flex rounded p-0.5" style={{ backgroundColor: '#D1DBE8' }}>
               <button
                 onClick={() => setViewMode('adoption')}
-                className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
-                  viewMode === 'adoption' 
-                    ? 'bg-white text-[#C8102E] shadow-sm' 
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
+                className="px-4 py-1.5 text-xs font-medium rounded transition-colors"
+                style={{
+                  backgroundColor: viewMode === 'adoption' ? 'white' : 'transparent',
+                  color: viewMode === 'adoption' ? '#224057' : '#6F7072',
+                  boxShadow: viewMode === 'adoption' ? '0 1px 3px rgba(34,64,87,0.15)' : 'none'
+                }}
               >
                 Adoption Rate
               </button>
               <button
                 onClick={() => setViewMode('prevalence')}
-                className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
-                  viewMode === 'prevalence' 
-                    ? 'bg-white text-blue-600 shadow-sm' 
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
+                className="px-4 py-1.5 text-xs font-medium rounded transition-colors"
+                style={{
+                  backgroundColor: viewMode === 'prevalence' ? 'white' : 'transparent',
+                  color: viewMode === 'prevalence' ? '#224057' : '#6F7072',
+                  boxShadow: viewMode === 'prevalence' ? '0 1px 3px rgba(34,64,87,0.15)' : 'none'
+                }}
               >
                 Disease Prevalence
               </button>
@@ -109,7 +110,7 @@ function ImplementationLayer() {
                         strokeWidth={0.5}
                         style={{
                           default: { outline: 'none' },
-                          hover: { outline: 'none', stroke: '#C8102E', strokeWidth: 2 },
+                          hover: { outline: 'none', stroke: '#F8C762', strokeWidth: 2 },
                           pressed: { outline: 'none' },
                         }}
                         onMouseEnter={(e) => handleMouseEnter(geo, e)}
@@ -125,30 +126,33 @@ function ImplementationLayer() {
             {/* Tooltip */}
             {hoveredState && (
               <div
-                className="fixed z-50 bg-white rounded-lg shadow-xl border p-4 pointer-events-none"
+                className="fixed z-50 bg-white rounded-lg pointer-events-none"
                 style={{
                   left: tooltipPosition.x + 15,
                   top: tooltipPosition.y - 10,
-                  minWidth: '220px'
+                  minWidth: '220px',
+                  border: '1px solid #D1DBE8',
+                  boxShadow: '0 4px 16px rgba(34,64,87,0.15)',
+                  padding: '16px'
                 }}
               >
-                <div className="font-semibold text-gray-900 mb-2">{hoveredState.state_name}</div>
+                <div className="font-semibold mb-2" style={{ color: '#224057' }}>{hoveredState.state_name}</div>
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Adoption Score:</span>
-                    <span className="font-medium text-[#C8102E]">{hoveredState.adoption_score}%</span>
+                    <span style={{ color: '#9BAABB' }}>Adoption Score:</span>
+                    <span className="font-medium" style={{ color: '#234D8B' }}>{hoveredState.adoption_score}%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">CVD Prevalence:</span>
-                    <span className="font-medium text-blue-600">{hoveredState.prevalence_rate}%</span>
+                    <span style={{ color: '#9BAABB' }}>CVD Prevalence:</span>
+                    <span className="font-medium" style={{ color: '#224057' }}>{hoveredState.prevalence_rate}%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Eligible Population:</span>
-                    <span className="font-medium">{(hoveredState.eligible_population / 1000000).toFixed(2)}M</span>
+                    <span style={{ color: '#9BAABB' }}>Eligible Population:</span>
+                    <span className="font-medium" style={{ color: '#224057' }}>{(hoveredState.eligible_population / 1000000).toFixed(2)}M</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Coverage Mandate:</span>
-                    <span className={`font-medium ${hoveredState.coverage_mandate ? 'text-green-600' : 'text-gray-400'}`}>
+                    <span style={{ color: '#9BAABB' }}>Coverage Mandate:</span>
+                    <span className="font-medium" style={{ color: hoveredState.coverage_mandate ? '#1A7A4A' : '#9BAABB' }}>
                       {hoveredState.coverage_mandate ? 'Yes' : 'No'}
                     </span>
                   </div>
@@ -157,34 +161,34 @@ function ImplementationLayer() {
             )}
 
             {/* Color Legend */}
-            <div className="absolute bottom-4 left-4 bg-white/95 rounded-lg shadow-md p-3 text-xs">
-              <div className="font-medium mb-2">
+            <div className="absolute bottom-4 left-4 rounded-lg p-3 text-xs" style={{ backgroundColor: 'rgba(255,255,255,0.95)', boxShadow: '0 2px 8px rgba(34,64,87,0.12)' }}>
+              <div className="font-medium mb-2" style={{ color: '#224057' }}>
                 {viewMode === 'adoption' ? 'Adoption Score' : 'Prevalence Rate'}
               </div>
               <div className="flex items-center space-x-1">
                 {viewMode === 'adoption' ? (
                   <>
-                    <div className="w-6 h-4 bg-[#FEE2E2] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#FECACA] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#FCA5A5] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#F87171] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#EF4444] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#DC2626] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#B91C1C] rounded-sm"></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#DBEAFE' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#BFDBFE' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#93C5FD' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#5B9FD8' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#3574B5' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#234D8B' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#224057' }}></div>
                   </>
                 ) : (
                   <>
-                    <div className="w-6 h-4 bg-[#DBEAFE] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#BFDBFE] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#93C5FD] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#60A5FA] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#3B82F6] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#2563EB] rounded-sm"></div>
-                    <div className="w-6 h-4 bg-[#1D4ED8] rounded-sm"></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#FFF4CC' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#FDEAA0' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#FBD966' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#F8C762' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#E5A830' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#C48818' }}></div>
+                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#9A6A0A' }}></div>
                   </>
                 )}
               </div>
-              <div className="flex justify-between mt-1 text-gray-500">
+              <div className="flex justify-between mt-1" style={{ color: '#9BAABB' }}>
                 <span>Low</span>
                 <span>High</span>
               </div>
@@ -195,62 +199,65 @@ function ImplementationLayer() {
         {/* Stats Sidebar */}
         <div className="space-y-4">
           {/* National Stats */}
-          <div className="bg-white rounded-xl border shadow-sm p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">National Overview</h3>
+          <div className="bg-white rounded-lg p-6" style={{ border: '1px solid #D1DBE8', boxShadow: '0 2px 8px rgba(34,64,87,0.07)' }}>
+            <h3 className="font-semibold mb-4" style={{ color: '#224057' }}>National Overview</h3>
             <div className="space-y-4">
               <div>
-                <div className="text-3xl font-bold text-[#C8102E]">{nationalStats.avgAdoption}%</div>
-                <div className="text-sm text-gray-500">National avg. CAC adoption</div>
+                <div className="text-4xl font-bold" style={{ color: '#234D8B' }}>{nationalStats.avgAdoption}%</div>
+                <div className="text-sm mt-0.5" style={{ color: '#6F7072' }}>National avg. CAC adoption</div>
               </div>
-              <div className="border-t pt-4 space-y-3">
+              <div className="pt-4 space-y-3" style={{ borderTop: '1px solid #E8F0F8' }}>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">States above 20% adoption:</span>
-                  <span className="font-medium">{nationalStats.statesAbove20}</span>
+                  <span style={{ color: '#6F7072' }}>States above 20% adoption:</span>
+                  <span className="font-semibold" style={{ color: '#224057' }}>{nationalStats.statesAbove20}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">States with coverage mandates:</span>
-                  <span className="font-medium">{nationalStats.statesWithMandate}</span>
+                  <span style={{ color: '#6F7072' }}>States with coverage mandates:</span>
+                  <span className="font-semibold" style={{ color: '#224057' }}>{nationalStats.statesWithMandate}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">Total eligible population:</span>
-                  <span className="font-medium">{(nationalStats.totalEligible / 1000000).toFixed(1)}M</span>
+                  <span style={{ color: '#6F7072' }}>Total eligible population:</span>
+                  <span className="font-semibold" style={{ color: '#224057' }}>{(nationalStats.totalEligible / 1000000).toFixed(1)}M</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Top Performers */}
-          <div className="bg-white rounded-xl border shadow-sm p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Highest Adoption</h3>
-            <div className="space-y-2">
+          <div className="bg-white rounded-lg p-6" style={{ border: '1px solid #D1DBE8', boxShadow: '0 2px 8px rgba(34,64,87,0.07)' }}>
+            <h3 className="font-semibold mb-4" style={{ color: '#224057' }}>Highest Adoption</h3>
+            <div className="space-y-3">
               {topStates.map((state, index) => (
                 <div key={state.state_code} className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <span className="w-5 h-5 rounded-full bg-green-100 text-green-700 text-xs flex items-center justify-center mr-2 font-medium">
+                    <span
+                      className="w-5 h-5 rounded-full text-xs flex items-center justify-center mr-2 font-semibold flex-shrink-0"
+                      style={{ backgroundColor: '#E8F0F8', color: '#224057' }}
+                    >
                       {index + 1}
                     </span>
-                    <span className="text-sm text-gray-700">{state.state_name}</span>
+                    <span className="text-sm" style={{ color: '#4A5568' }}>{state.state_name}</span>
                   </div>
-                  <span className="text-sm font-semibold text-[#C8102E]">{state.adoption_score}%</span>
+                  <span className="text-sm font-semibold" style={{ color: '#234D8B' }}>{state.adoption_score}%</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Lowest Performers */}
-          <div className="bg-white rounded-xl border shadow-sm p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Lowest Adoption</h3>
-            <div className="space-y-2">
+          <div className="bg-white rounded-lg p-6" style={{ border: '1px solid #D1DBE8', boxShadow: '0 2px 8px rgba(34,64,87,0.07)' }}>
+            <h3 className="font-semibold mb-4" style={{ color: '#224057' }}>Lowest Adoption</h3>
+            <div className="space-y-3">
               {bottomStates.map((state) => (
                 <div key={state.state_code} className="flex items-center justify-between">
-                  <span className="text-sm text-gray-700">{state.state_name}</span>
-                  <span className="text-sm font-semibold text-gray-500">{state.adoption_score}%</span>
+                  <span className="text-sm" style={{ color: '#4A5568' }}>{state.state_name}</span>
+                  <span className="text-sm font-semibold" style={{ color: '#9BAABB' }}>{state.adoption_score}%</span>
                 </div>
               ))}
             </div>
-            <div className="mt-4 pt-4 border-t">
-              <p className="text-xs text-gray-500">
-                Lowest adoption regions: Deep South, Rural Midwest. 
+            <div className="mt-4 pt-4" style={{ borderTop: '1px solid #E8F0F8' }}>
+              <p className="text-xs leading-relaxed" style={{ color: '#9BAABB' }}>
+                Lowest adoption regions: Deep South, Rural Midwest.
                 These areas often have higher CVD prevalence and lower access to imaging centers.
               </p>
             </div>
@@ -259,33 +266,24 @@ function ImplementationLayer() {
       </div>
 
       {/* Insights Section */}
-      <div className="bg-gradient-to-r from-[#C8102E]/5 to-transparent rounded-xl p-6 border border-[#C8102E]/10">
-        <h3 className="font-semibold text-gray-900 mb-3">Key Insights</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
-          <div className="flex items-start space-x-2">
-            <svg className="w-5 h-5 text-[#C8102E] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            <span>States with coverage mandates (CA, MA) show 2x higher adoption rates on average</span>
-          </div>
-          <div className="flex items-start space-x-2">
-            <svg className="w-5 h-5 text-[#C8102E] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            <span>Areas with highest CVD prevalence often have lowest CAC adoption - an opportunity gap</span>
-          </div>
-          <div className="flex items-start space-x-2">
-            <svg className="w-5 h-5 text-[#C8102E] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            <span>Texas leads adoption despite lack of mandate - driven by major health systems</span>
-          </div>
-          <div className="flex items-start space-x-2">
-            <svg className="w-5 h-5 text-[#C8102E] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            <span>Minnesota's high adoption correlates with strong integrated health system presence</span>
-          </div>
+      <div className="rounded-lg p-6" style={{ backgroundColor: '#E8F0F8', border: '1px solid #D1DBE8' }}>
+        <h3 className="font-semibold mb-4" style={{ color: '#224057' }}>Key Insights</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm" style={{ color: '#4A5568' }}>
+          {[
+            'States with coverage mandates (CA, MA) show 2x higher adoption rates on average',
+            'Areas with highest CVD prevalence often have lowest CAC adoption — an opportunity gap',
+            'Texas leads adoption despite lack of mandate — driven by major health systems',
+            'Minnesota\'s high adoption correlates with strong integrated health system presence'
+          ].map((insight, i) => (
+            <div key={i} className="flex items-start space-x-3">
+              <div className="flex-shrink-0 mt-0.5 w-4 h-4 rounded-full flex items-center justify-center" style={{ backgroundColor: '#F8C762' }}>
+                <svg className="w-2.5 h-2.5" fill="#224057" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <span>{insight}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
