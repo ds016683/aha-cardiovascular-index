@@ -1,52 +1,189 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 const guidelines = [
   {
     id: 'cac',
     name: 'Coronary Artery Calcium (CAC) Scoring',
-    description: 'Non-invasive imaging to quantify coronary atherosclerosis and refine cardiovascular risk assessment in intermediate-risk patients.',
-    keyStat: 'Only 12% of eligible patients currently receive CAC scoring',
+    description: 'A noninvasive CT scan measuring calcium buildup in coronary arteries to identify subclinical atherosclerosis and refine cardiovascular risk for intermediate-risk patients â€” informing statin therapy and lifestyle decisions.',
+    keyStat: 'Only 12% of eligible patients receive CAC scoring',
+    coverage: 'Many plans treat it as elective; $100â€“$400 out-of-pocket. Few states mandate coverage.',
+    guidelineStatus: 'AHA/ACC Class IIa Recommendation (2019 Primary Prevention Guidelines)',
     active: true,
     path: '/cac-scoring'
   },
   {
     id: 'abpm',
     name: 'Ambulatory Blood Pressure Monitoring (ABPM)',
-    description: '24-hour blood pressure measurement to detect white-coat hypertension, masked hypertension, and nocturnal patterns.',
-    keyStat: 'Recommended by guidelines but used in <5% of hypertension diagnoses',
-    active: false
+    description: 'A wearable device records blood pressure over 24 hours, enabling accurate diagnosis of hypertension, white-coat syndrome, and masked hypertension that standard office readings miss.',
+    keyStat: 'Guideline gold standard for hypertension diagnosis â€” used in <5% of cases',
+    coverage: 'Many plans restrict reimbursement to narrow scenarios or pay rates too low for clinics to offer the service sustainably.',
+    guidelineStatus: 'AHA/ACC Endorsed â€” Gold Standard for Hypertension Diagnosis',
+    active: false,
+    comingSoon: true
   },
   {
     id: 'genetic',
     name: 'Cardiovascular Genetic Testing',
-    description: 'Genetic screening for familial hypercholesterolemia and inherited cardiomyopathies.',
-    keyStat: '90% of FH cases remain undiagnosed in the US',
-    active: false
+    description: 'Genetic panels for familial hypercholesterolemia (FH), cardiomyopathies, and arrhythmia syndromes enable early identification of inherited risk â€” dramatically reducing lifetime cardiovascular events through early intervention.',
+    keyStat: '90% of the 1.3M Americans with FH remain undiagnosed',
+    coverage: 'Many commercial insurers classify cardiovascular genetic panels as investigational, leaving patients to pay full cost out-of-pocket.',
+    guidelineStatus: 'ACC/AHA Supported â€” Clinically Actionable and Cost-Effective',
+    active: false,
+    comingSoon: true
   },
   {
     id: 'cardiac-rehab',
     name: 'Cardiac Rehabilitation',
-    description: 'Structured exercise and education programs for post-MI and post-CABG patients.',
-    keyStat: 'Only 24% of eligible patients participate nationally',
-    active: false
+    description: 'Structured, supervised exercise and education programs for post-MI, post-CABG, and heart failure patients â€” proven to reduce mortality and hospitalizations, yet chronically underutilized.',
+    keyStat: 'Only 24% of eligible post-MI patients participate nationally',
+    coverage: 'Coverage exists but access is limited by geographic gaps, scheduling barriers, and low reimbursement rates.',
+    guidelineStatus: 'AHA/ACC Class I Recommendation â€” Highest Level of Evidence',
+    active: false,
+    comingSoon: true
   },
   {
     id: 'future-1',
-    name: '2026 Guideline Preview',
-    description: 'Upcoming evidence-based guidelines to be added to the Prevention Index ecosystem.',
-    keyStat: 'Coming in AHA 2026 Scientific Sessions',
+    name: 'Hypertension Management Protocols',
+    description: 'Standardized treat-to-target protocols for blood pressure management in high-risk populations, including digital health monitoring and pharmacist-led interventions.',
+    keyStat: 'Nearly half of U.S. adults have hypertension; only 1 in 4 have it controlled',
+    guidelineStatus: 'AHA 2026 Scientific Sessions â€” Q3 2026',
     active: false,
     isFuture: true
   },
   {
     id: 'future-2',
-    name: '2026 Guideline Preview',
-    description: 'Additional forthcoming guidelines demonstrating the platform scalability.',
-    keyStat: 'Expanding the ecosystem',
+    name: 'Preventive Statin Therapy Access',
+    description: 'Analysis of coverage gaps and access barriers for guideline-recommended statin therapy across commercial, Medicare, and Medicaid populations using TiC reimbursement data.',
+    keyStat: 'Up to 30% of high-risk patients who qualify for statins are untreated',
+    guidelineStatus: 'AHA 2026 Scientific Sessions â€” Q4 2026',
     active: false,
     isFuture: true
   }
 ]
+
+const CAC_QA = [
+  {
+    q: "What is CAC scoring and why does it matter?",
+    a: "Coronary Artery Calcium (CAC) scoring is a noninvasive CT scan that detects and quantifies calcified plaque in the coronary arteries. It's one of the most powerful tools for identifying cardiovascular risk in intermediate-risk patients â€” helping doctors decide whether to start statin therapy. Studies show it reclassifies risk in ~25% of patients, prevents ~30% of MACE events when used to guide therapy, and avoids unnecessary statin use in ~40% of low-risk patients."
+  },
+  {
+    q: "Why is CAC adoption so low?",
+    a: "Despite strong guideline endorsement (AHA/ACC Class IIa), CAC scoring faces significant access barriers. Most commercial health plans do not cover it, leaving patients to pay $100â€“$400 out-of-pocket. Only a handful of states mandate coverage. Additionally, not all imaging centers offer the test, and many primary care physicians are unfamiliar with interpreting results or incorporating them into shared decision-making."
+  },
+  {
+    q: "Which states have the highest adoption rates?",
+    a: "Based on our synthetic adoption model, Texas leads nationally at 32% adoption â€” driven partly by state legislation requiring coverage for certain cardiac imaging. Minnesota (28%) and Massachusetts (26%) follow, both benefiting from strong academic medical center networks and progressive payer relationships. The lowest adoption is concentrated in the Southeast: Mississippi (4%), Alabama (5%), and West Virginia (5%) â€” states with limited imaging infrastructure and lower rates of preventive care utilization."
+  },
+  {
+    q: "What would happen if adoption doubled?",
+    a: "Using our ESVA model with national parameters: doubling CAC adoption from 12% to 24% would impact approximately 8.2 million additional eligible patients. This would prevent an estimated 287,000 major cardiovascular events over 10 years, generate $4.1 billion in net healthcare savings (after accounting for implementation costs), and yield roughly 412,000 quality-adjusted life years (QALYs). The ROI is approximately 3.2x â€” a compelling case for payer coverage expansion."
+  },
+  {
+    q: "How does this platform support AHA advocacy?",
+    a: "The Cardiovascular Prevention Index gives AHA three new evidence levers: First, real-time coverage mapping â€” showing exactly which health plans cover CAC scoring and at what rates. Second, geographic gap analysis â€” identifying where eligible patients have no in-network access to imaging. Third, economic modeling â€” quantifying the cost of inaction in terms insurers and employers understand. Together, these create a data-driven foundation for AHA's advocacy with CMS, state legislatures, and major health plans."
+  },
+  {
+    q: "What does the data actually show about payer coverage?",
+    a: "Our analysis of Transparency in Coverage (TiC) data reveals significant variation: only 31% of commercial health plans list CAC scoring as a covered service with contracted rates. Of those that do cover it, reimbursement rates vary from $45 to $180 per scan â€” a 4x range that directly affects imaging center participation and patient access. Medicare covers CAC scoring in limited circumstances, while Medicaid coverage is nearly nonexistent in most states."
+  }
+]
+
+function AIChatPanel({ isOpen, onClose }) {
+  const [selected, setSelected] = React.useState(null)
+  const [thinking, setThinking] = React.useState(false)
+  const [answer, setAnswer] = React.useState('')
+
+  const handleSelect = (qa) => {
+    setSelected(qa)
+    setAnswer('')
+    setThinking(true)
+    // Simulate thinking delay
+    setTimeout(() => {
+      setThinking(false)
+      let i = 0
+      const interval = setInterval(() => {
+        setAnswer(qa.a.substring(0, i))
+        i += 8
+        if (i >= qa.a.length) {
+          setAnswer(qa.a)
+          clearInterval(interval)
+        }
+      }, 16)
+    }, 800)
+  }
+
+  if (!isOpen) return null
+
+  return (
+    <div style={{
+      position: 'fixed', top: 0, right: 0, bottom: 0, width: '380px',
+      backgroundColor: '#FFFFFF', boxShadow: '-4px 0 24px rgba(0,0,0,0.12)',
+      zIndex: 1000, display: 'flex', flexDirection: 'column',
+      fontFamily: 'system-ui, -apple-system, sans-serif'
+    }}>
+      {/* Header */}
+      <div style={{ backgroundColor: '#C8102E', padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div>
+          <div style={{ color: 'white', fontWeight: 700, fontSize: 15 }}>Ask the Prevention Index</div>
+          <div style={{ color: 'rgba(255,255,255,0.75)', fontSize: 12, marginTop: 2 }}>CAC Scoring â€” Synthetic Demo</div>
+        </div>
+        <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontSize: 20, lineHeight: 1, padding: '4px 8px' }}>Ã—</button>
+      </div>
+
+      {/* Question list */}
+      <div style={{ padding: '16px', borderBottom: '1px solid #F0F0F0' }}>
+        <div style={{ fontSize: 11, fontWeight: 700, color: '#6B7280', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>Suggested Questions</div>
+        {CAC_QA.map((qa, i) => (
+          <button key={i} onClick={() => handleSelect(qa)} style={{
+            display: 'block', width: '100%', textAlign: 'left',
+            padding: '8px 12px', marginBottom: 6, borderRadius: 8,
+            border: `1px solid ${selected === qa ? '#C8102E' : '#E5E5E5'}`,
+            backgroundColor: selected === qa ? '#FFF5F5' : 'white',
+            color: selected === qa ? '#C8102E' : '#1A1A1A',
+            fontSize: 13, cursor: 'pointer', lineHeight: 1.4,
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            transition: 'all 0.15s'
+          }}>
+            {qa.q}
+          </button>
+        ))}
+      </div>
+
+      {/* Answer area */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
+        {!selected && (
+          <div style={{ textAlign: 'center', padding: '40px 20px', color: '#9CA3AF' }}>
+            <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ margin: '0 auto 12px', display: 'block' }}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <div style={{ fontSize: 13 }}>Select a question above to see a data-driven response from the Prevention Index.</div>
+          </div>
+        )}
+        {selected && thinking && (
+          <div style={{ padding: '20px 0' }}>
+            <div style={{ fontSize: 11, color: '#6B7280', marginBottom: 12 }}>Searching Prevention Index...</div>
+            {['Retrieving CAC adoption data...', 'Cross-referencing TiC coverage analysis...', 'Generating response...'].map((step, i) => (
+              <div key={i} style={{ fontSize: 12, color: '#C8102E', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#C8102E', animation: 'pulse 1s infinite' }} />
+                {step}
+              </div>
+            ))}
+          </div>
+        )}
+        {selected && !thinking && answer && (
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#C8102E', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Prevention Index Response</div>
+            <div style={{ fontSize: 14, color: '#1A1A1A', lineHeight: 1.7 }}>{answer}</div>
+            <div style={{ marginTop: 16, padding: '10px 14px', backgroundColor: '#F5F5F5', borderRadius: 8, fontSize: 11, color: '#9CA3AF' }}>
+              Based on synthetic demonstration data. Full deployment uses live TiC data and Claude AI.
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
 
 const styles = {
   page: {
@@ -198,6 +335,13 @@ const styles = {
     padding: '24px',
     border: '2px dashed #E5E7EB'
   },
+  guidelineCardComingSoon: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: '12px',
+    padding: '24px',
+    border: '1px solid #E5E7EB',
+    boxShadow: '0 1px 4px rgba(0,0,0,0.08)'
+  },
   badge: {
     display: 'inline-block',
     padding: '4px 12px',
@@ -212,12 +356,12 @@ const styles = {
     color: '#1A7A4A'
   },
   badgeSoon: {
-    backgroundColor: '#F5F5F5',
-    color: '#6B7280'
-  },
-  badgeFuture: {
     backgroundColor: '#FFF5F5',
     color: '#C8102E'
+  },
+  badgeFuture: {
+    backgroundColor: '#F5F5F5',
+    color: '#6B7280'
   },
   guidelineTitle: {
     fontSize: '16px',
@@ -229,6 +373,12 @@ const styles = {
     fontSize: '16px',
     fontWeight: '600',
     color: '#9CA3AF',
+    marginBottom: '8px'
+  },
+  guidelineTitleComingSoon: {
+    fontSize: '16px',
+    fontWeight: '600',
+    color: '#1A1A1A',
     marginBottom: '8px'
   },
   guidelineDesc: {
@@ -243,6 +393,12 @@ const styles = {
     lineHeight: '1.6',
     marginBottom: '16px'
   },
+  guidelineDescComingSoon: {
+    fontSize: '14px',
+    color: '#6B7280',
+    lineHeight: '1.6',
+    marginBottom: '16px'
+  },
   guidelineStat: {
     fontSize: '14px',
     fontWeight: '500',
@@ -254,6 +410,12 @@ const styles = {
     fontWeight: '500',
     color: '#9CA3AF',
     marginBottom: '20px'
+  },
+  guidelineStatComingSoon: {
+    fontSize: '14px',
+    fontWeight: '500',
+    color: '#C8102E',
+    marginBottom: '8px'
   },
   guidelineLink: {
     color: '#C8102E',
@@ -324,8 +486,27 @@ const styles = {
 }
 
 function LandingPage() {
+  const [chatOpen, setChatOpen] = React.useState(false)
+
   return (
     <div style={styles.page} className="animate-fade-in">
+      <AIChatPanel isOpen={chatOpen} onClose={() => setChatOpen(false)} />
+
+      {/* Floating Chat Trigger */}
+      <button
+        onClick={() => setChatOpen(!chatOpen)}
+        style={{
+          position: 'fixed', bottom: 32, right: chatOpen ? 412 : 32,
+          backgroundColor: '#C8102E', color: 'white', border: 'none',
+          borderRadius: 50, width: 56, height: 56, cursor: 'pointer',
+          boxShadow: '0 4px 16px rgba(200,16,46,0.4)', zIndex: 999,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          transition: 'right 0.3s ease', fontSize: 22
+        }}
+      >
+        {chatOpen ? 'Ã—' : 'ðŸ’¬'}
+      </button>
+
       {/* Hero Section */}
       <section style={styles.hero}>
         <div style={styles.heroContainer}>
@@ -403,7 +584,9 @@ function LandingPage() {
                     ? styles.guidelineCardActive
                     : guideline.isFuture
                       ? styles.guidelineCardFuture
-                      : styles.guidelineCard
+                      : guideline.comingSoon
+                        ? styles.guidelineCardComingSoon
+                        : styles.guidelineCard
                 }
               >
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
@@ -419,15 +602,39 @@ function LandingPage() {
                     </svg>
                   )}
                 </div>
-                <h3 style={guideline.active ? styles.guidelineTitle : styles.guidelineTitleInactive}>
+                <h3 style={
+                  guideline.active 
+                    ? styles.guidelineTitle 
+                    : guideline.comingSoon 
+                      ? styles.guidelineTitleComingSoon 
+                      : styles.guidelineTitleInactive
+                }>
                   {guideline.name}
                 </h3>
-                <p style={guideline.active ? styles.guidelineDesc : styles.guidelineDescInactive}>
+                <p style={
+                  guideline.active 
+                    ? styles.guidelineDesc 
+                    : guideline.comingSoon 
+                      ? styles.guidelineDescComingSoon 
+                      : styles.guidelineDescInactive
+                }>
                   {guideline.description}
                 </p>
-                <div style={guideline.active ? styles.guidelineStat : styles.guidelineStatInactive}>
+                <div style={
+                  guideline.active 
+                    ? styles.guidelineStat 
+                    : guideline.comingSoon 
+                      ? styles.guidelineStatComingSoon 
+                      : styles.guidelineStatInactive
+                }>
                   {guideline.keyStat}
                 </div>
+                {guideline.comingSoon && guideline.guidelineStatus && (
+                  <div style={{ fontSize: 11, color: '#C8102E', fontWeight: 600, marginTop: 8 }}>{guideline.guidelineStatus}</div>
+                )}
+                {guideline.comingSoon && guideline.coverage && (
+                  <div style={{ fontSize: 12, color: '#6B7280', marginTop: 6, lineHeight: 1.5 }}>{guideline.coverage}</div>
+                )}
                 {guideline.active ? (
                   <Link to={guideline.path} style={styles.guidelineLink}>
                     Explore Index
@@ -436,7 +643,9 @@ function LandingPage() {
                     </svg>
                   </Link>
                 ) : (
-                  <span style={{ fontSize: '12px', color: '#9CA3AF' }}>Coming in future release</span>
+                  <span style={{ fontSize: '12px', color: '#9CA3AF', marginTop: guideline.comingSoon ? 16 : 0, display: 'block' }}>
+                    {guideline.isFuture ? guideline.guidelineStatus : 'Coming in future release'}
+                  </span>
                 )}
               </div>
             ))}
