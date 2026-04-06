@@ -18,6 +18,280 @@ const fipsToState = {
   '56': 'WY'
 }
 
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '48px'
+  },
+  sectionHeader: {
+    marginBottom: '0'
+  },
+  sectionTitle: {
+    fontSize: '24px',
+    fontWeight: '700',
+    color: '#1A1A1A',
+    marginBottom: '12px'
+  },
+  sectionAccent: {
+    width: '48px',
+    height: '3px',
+    backgroundColor: '#C8102E',
+    marginBottom: '16px'
+  },
+  sectionSubtitle: {
+    fontSize: '16px',
+    color: '#6B7280',
+    lineHeight: '1.6'
+  },
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: '2fr 1fr',
+    gap: '24px'
+  },
+  mapCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: '12px',
+    border: '1px solid #E5E7EB',
+    overflow: 'hidden',
+    boxShadow: '0 1px 4px rgba(0,0,0,0.08)'
+  },
+  mapHeader: {
+    backgroundColor: '#F5F5F5',
+    borderBottom: '1px solid #E5E7EB',
+    padding: '16px 20px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  mapTitle: {
+    fontSize: '14px',
+    fontWeight: '500',
+    color: '#1A1A1A'
+  },
+  toggleWrapper: {
+    display: 'flex',
+    backgroundColor: '#E5E7EB',
+    borderRadius: '6px',
+    padding: '2px'
+  },
+  toggleBtn: {
+    padding: '8px 16px',
+    fontSize: '12px',
+    fontWeight: '500',
+    borderRadius: '4px',
+    border: 'none',
+    cursor: 'pointer',
+    transition: 'all 0.2s'
+  },
+  toggleBtnActive: {
+    backgroundColor: '#FFFFFF',
+    color: '#1A1A1A',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+  },
+  toggleBtnInactive: {
+    backgroundColor: 'transparent',
+    color: '#6B7280'
+  },
+  mapContainer: {
+    position: 'relative',
+    height: '450px'
+  },
+  tooltip: {
+    position: 'fixed',
+    zIndex: 50,
+    backgroundColor: '#FFFFFF',
+    borderRadius: '12px',
+    pointerEvents: 'none',
+    minWidth: '220px',
+    border: '1px solid #E5E7EB',
+    boxShadow: '0 4px 16px rgba(0,0,0,0.12)',
+    padding: '16px'
+  },
+  tooltipTitle: {
+    fontWeight: '600',
+    color: '#1A1A1A',
+    marginBottom: '8px'
+  },
+  tooltipRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '4px',
+    fontSize: '14px'
+  },
+  tooltipLabel: {
+    color: '#9CA3AF'
+  },
+  tooltipValue: {
+    fontWeight: '500',
+    color: '#1A1A1A'
+  },
+  tooltipValueRed: {
+    fontWeight: '500',
+    color: '#C8102E'
+  },
+  tooltipValueGreen: {
+    fontWeight: '500',
+    color: '#1A7A4A'
+  },
+  legend: {
+    position: 'absolute',
+    bottom: '16px',
+    left: '16px',
+    backgroundColor: 'rgba(255,255,255,0.95)',
+    borderRadius: '8px',
+    padding: '12px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    fontSize: '12px'
+  },
+  legendTitle: {
+    fontWeight: '500',
+    color: '#1A1A1A',
+    marginBottom: '8px'
+  },
+  legendColors: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4px'
+  },
+  legendColor: {
+    width: '24px',
+    height: '16px',
+    borderRadius: '2px'
+  },
+  legendLabels: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '4px',
+    color: '#9CA3AF'
+  },
+  sidebar: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px'
+  },
+  card: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: '12px',
+    border: '1px solid #E5E7EB',
+    padding: '24px',
+    boxShadow: '0 1px 4px rgba(0,0,0,0.08)'
+  },
+  cardTitle: {
+    fontWeight: '600',
+    color: '#1A1A1A',
+    marginBottom: '20px'
+  },
+  bigStat: {
+    fontSize: '36px',
+    fontWeight: '700',
+    color: '#C8102E'
+  },
+  statLabel: {
+    fontSize: '14px',
+    color: '#6B7280',
+    marginTop: '4px'
+  },
+  statDivider: {
+    borderTop: '1px solid #F3F4F6',
+    paddingTop: '16px',
+    marginTop: '16px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px'
+  },
+  statRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    fontSize: '14px'
+  },
+  statRowLabel: {
+    color: '#6B7280'
+  },
+  statRowValue: {
+    fontWeight: '600',
+    color: '#1A1A1A'
+  },
+  rankItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: '12px'
+  },
+  rankNumber: {
+    width: '20px',
+    height: '20px',
+    borderRadius: '999px',
+    backgroundColor: '#F5F5F5',
+    color: '#1A1A1A',
+    fontSize: '12px',
+    fontWeight: '600',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: '8px',
+    flexShrink: 0
+  },
+  rankName: {
+    fontSize: '14px',
+    color: '#4A5568'
+  },
+  rankValue: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#C8102E'
+  },
+  rankValueGray: {
+    fontSize: '14px',
+    fontWeight: '600',
+    color: '#9CA3AF'
+  },
+  bottomNote: {
+    borderTop: '1px solid #F3F4F6',
+    paddingTop: '16px',
+    marginTop: '8px'
+  },
+  noteText: {
+    fontSize: '12px',
+    color: '#9CA3AF',
+    lineHeight: '1.6'
+  },
+  insightsBox: {
+    backgroundColor: '#F5F5F5',
+    borderRadius: '12px',
+    border: '1px solid #E5E7EB',
+    padding: '32px'
+  },
+  insightsTitle: {
+    fontWeight: '600',
+    color: '#1A1A1A',
+    marginBottom: '20px'
+  },
+  insightsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '20px'
+  },
+  insightItem: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '12px',
+    fontSize: '14px',
+    color: '#4A5568'
+  },
+  insightIcon: {
+    flexShrink: 0,
+    marginTop: '2px',
+    width: '16px',
+    height: '16px',
+    borderRadius: '999px',
+    backgroundColor: '#C8102E',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+}
+
 function ImplementationLayer() {
   const [viewMode, setViewMode] = useState('adoption')
   const [hoveredState, setHoveredState] = useState(null)
@@ -53,41 +327,37 @@ function ImplementationLayer() {
   const bottomStates = [...stateData].sort((a, b) => a.adoption_score - b.adoption_score).slice(0, 5)
 
   return (
-    <div className="space-y-12">
+    <div style={styles.container}>
       {/* Section Header */}
-      <div>
-        <h2 className="text-2xl font-bold mb-3" style={{ color: '#1A1A1A' }}>Where does the country stand today?</h2>
-        <div style={{ height: '3px', width: '48px', backgroundColor: '#C8102E', marginBottom: '16px' }}></div>
-        <p style={{ color: '#6B7280' }}>Geographic variation in CAC scoring adoption and cardiovascular disease prevalence</p>
+      <div style={styles.sectionHeader}>
+        <h2 style={styles.sectionTitle}>Where does the country stand today?</h2>
+        <div style={styles.sectionAccent}></div>
+        <p style={styles.sectionSubtitle}>Geographic variation in CAC scoring adoption and cardiovascular disease prevalence</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div style={styles.grid}>
         {/* Map Section */}
-        <div className="lg:col-span-2 bg-white rounded-lg overflow-hidden" style={{ border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+        <div style={styles.mapCard}>
           {/* View Toggle */}
-          <div className="px-5 py-4 flex items-center justify-between" style={{ backgroundColor: '#F8F8F8', borderBottom: '1px solid #E5E7EB' }}>
-            <span className="font-medium text-sm" style={{ color: '#1A1A1A' }}>
+          <div style={styles.mapHeader}>
+            <span style={styles.mapTitle}>
               {viewMode === 'adoption' ? 'CAC Adoption Index' : 'CVD Prevalence Rate'}
             </span>
-            <div className="flex rounded p-0.5" style={{ backgroundColor: '#E5E7EB' }}>
+            <div style={styles.toggleWrapper}>
               <button
                 onClick={() => setViewMode('adoption')}
-                className="px-4 py-1.5 text-xs font-medium rounded transition-colors"
                 style={{
-                  backgroundColor: viewMode === 'adoption' ? 'white' : 'transparent',
-                  color: viewMode === 'adoption' ? '#1A1A1A' : '#6B7280',
-                  boxShadow: viewMode === 'adoption' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'
+                  ...styles.toggleBtn,
+                  ...(viewMode === 'adoption' ? styles.toggleBtnActive : styles.toggleBtnInactive)
                 }}
               >
                 Adoption Rate
               </button>
               <button
                 onClick={() => setViewMode('prevalence')}
-                className="px-4 py-1.5 text-xs font-medium rounded transition-colors"
                 style={{
-                  backgroundColor: viewMode === 'prevalence' ? 'white' : 'transparent',
-                  color: viewMode === 'prevalence' ? '#1A1A1A' : '#6B7280',
-                  boxShadow: viewMode === 'prevalence' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'
+                  ...styles.toggleBtn,
+                  ...(viewMode === 'prevalence' ? styles.toggleBtnActive : styles.toggleBtnInactive)
                 }}
               >
                 Disease Prevalence
@@ -96,7 +366,7 @@ function ImplementationLayer() {
           </div>
 
           {/* Map */}
-          <div className="relative" style={{ height: '450px' }}>
+          <div style={styles.mapContainer}>
             <ComposableMap projection="geoAlbersUsa" style={{ width: '100%', height: '100%' }}>
               <ZoomableGroup>
                 <Geographies geography={geoUrl}>
@@ -125,70 +395,58 @@ function ImplementationLayer() {
 
             {/* Tooltip */}
             {hoveredState && (
-              <div
-                className="fixed z-50 bg-white rounded-lg pointer-events-none"
-                style={{
-                  left: tooltipPosition.x + 15,
-                  top: tooltipPosition.y - 10,
-                  minWidth: '220px',
-                  border: '1px solid #E5E7EB',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.12)',
-                  padding: '16px'
-                }}
-              >
-                <div className="font-semibold mb-2" style={{ color: '#1A1A1A' }}>{hoveredState.state_name}</div>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span style={{ color: '#9BAABB' }}>Adoption Score:</span>
-                    <span className="font-medium" style={{ color: '#C8102E' }}>{hoveredState.adoption_score}%</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span style={{ color: '#9BAABB' }}>CVD Prevalence:</span>
-                    <span className="font-medium" style={{ color: '#1A1A1A' }}>{hoveredState.prevalence_rate}%</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span style={{ color: '#9BAABB' }}>Eligible Population:</span>
-                    <span className="font-medium" style={{ color: '#1A1A1A' }}>{(hoveredState.eligible_population / 1000000).toFixed(2)}M</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span style={{ color: '#9BAABB' }}>Coverage Mandate:</span>
-                    <span className="font-medium" style={{ color: hoveredState.coverage_mandate ? '#1A7A4A' : '#9BAABB' }}>
-                      {hoveredState.coverage_mandate ? 'Yes' : 'No'}
-                    </span>
-                  </div>
+              <div style={{ ...styles.tooltip, left: tooltipPosition.x + 15, top: tooltipPosition.y - 10 }}>
+                <div style={styles.tooltipTitle}>{hoveredState.state_name}</div>
+                <div style={styles.tooltipRow}>
+                  <span style={styles.tooltipLabel}>Adoption Score:</span>
+                  <span style={styles.tooltipValueRed}>{hoveredState.adoption_score}%</span>
+                </div>
+                <div style={styles.tooltipRow}>
+                  <span style={styles.tooltipLabel}>CVD Prevalence:</span>
+                  <span style={styles.tooltipValue}>{hoveredState.prevalence_rate}%</span>
+                </div>
+                <div style={styles.tooltipRow}>
+                  <span style={styles.tooltipLabel}>Eligible Population:</span>
+                  <span style={styles.tooltipValue}>{(hoveredState.eligible_population / 1000000).toFixed(2)}M</span>
+                </div>
+                <div style={styles.tooltipRow}>
+                  <span style={styles.tooltipLabel}>Coverage Mandate:</span>
+                  <span style={hoveredState.coverage_mandate ? styles.tooltipValueGreen : styles.tooltipLabel}>
+                    {hoveredState.coverage_mandate ? 'Yes' : 'No'}
+                  </span>
                 </div>
               </div>
             )}
 
             {/* Color Legend */}
-            <div className="absolute bottom-4 left-4 rounded-lg p-3 text-xs" style={{ backgroundColor: 'rgba(255,255,255,0.95)', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-              <div className="font-medium mb-2" style={{ color: '#1A1A1A' }}>
+            <div style={styles.legend}>
+              <div style={styles.legendTitle}>
                 {viewMode === 'adoption' ? 'Adoption Score' : 'Prevalence Rate'}
               </div>
-              <div className="flex items-center space-x-1">
+              <div style={styles.legendColors}>
                 {viewMode === 'adoption' ? (
                   <>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#FECDD3' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#FCA5A5' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#F87171' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#EF4444' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#DC2626' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#C8102E' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#9B0E25' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#FECDD3' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#FCA5A5' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#F87171' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#EF4444' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#DC2626' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#C8102E' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#9B0E25' }}></div>
                   </>
                 ) : (
                   <>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#FEE2E2' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#FECDD3' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#FCA5A5' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#F87171' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#EF4444' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#C8102E' }}></div>
-                    <div className="w-6 h-4 rounded-sm" style={{ backgroundColor: '#9B0E25' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#FEE2E2' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#FECDD3' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#FCA5A5' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#F87171' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#EF4444' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#C8102E' }}></div>
+                    <div style={{ ...styles.legendColor, backgroundColor: '#9B0E25' }}></div>
                   </>
                 )}
               </div>
-              <div className="flex justify-between mt-1" style={{ color: '#9BAABB' }}>
+              <div style={styles.legendLabels}>
                 <span>Low</span>
                 <span>High</span>
               </div>
@@ -197,66 +455,53 @@ function ImplementationLayer() {
         </div>
 
         {/* Stats Sidebar */}
-        <div className="space-y-4">
+        <div style={styles.sidebar}>
           {/* National Stats */}
-          <div className="bg-white rounded-lg p-6" style={{ border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-            <h3 className="font-semibold mb-5" style={{ color: '#1A1A1A' }}>National Overview</h3>
-            <div className="space-y-4">
-              <div>
-                <div className="text-4xl font-bold" style={{ color: '#C8102E' }}>{nationalStats.avgAdoption}%</div>
-                <div className="text-sm mt-1" style={{ color: '#6B7280' }}>National avg. CAC adoption</div>
+          <div style={styles.card}>
+            <h3 style={styles.cardTitle}>National Overview</h3>
+            <div style={styles.bigStat}>{nationalStats.avgAdoption}%</div>
+            <div style={styles.statLabel}>National avg. CAC adoption</div>
+            <div style={styles.statDivider}>
+              <div style={styles.statRow}>
+                <span style={styles.statRowLabel}>States above 20% adoption:</span>
+                <span style={styles.statRowValue}>{nationalStats.statesAbove20}</span>
               </div>
-              <div className="pt-4 space-y-3" style={{ borderTop: '1px solid #F3F4F6' }}>
-                <div className="flex justify-between text-sm">
-                  <span style={{ color: '#6B7280' }}>States above 20% adoption:</span>
-                  <span className="font-semibold" style={{ color: '#1A1A1A' }}>{nationalStats.statesAbove20}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span style={{ color: '#6B7280' }}>States with coverage mandates:</span>
-                  <span className="font-semibold" style={{ color: '#1A1A1A' }}>{nationalStats.statesWithMandate}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span style={{ color: '#6B7280' }}>Total eligible population:</span>
-                  <span className="font-semibold" style={{ color: '#1A1A1A' }}>{(nationalStats.totalEligible / 1000000).toFixed(1)}M</span>
-                </div>
+              <div style={styles.statRow}>
+                <span style={styles.statRowLabel}>States with coverage mandates:</span>
+                <span style={styles.statRowValue}>{nationalStats.statesWithMandate}</span>
+              </div>
+              <div style={styles.statRow}>
+                <span style={styles.statRowLabel}>Total eligible population:</span>
+                <span style={styles.statRowValue}>{(nationalStats.totalEligible / 1000000).toFixed(1)}M</span>
               </div>
             </div>
           </div>
 
           {/* Top Performers */}
-          <div className="bg-white rounded-lg p-6" style={{ border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-            <h3 className="font-semibold mb-5" style={{ color: '#1A1A1A' }}>Highest Adoption</h3>
-            <div className="space-y-3">
-              {topStates.map((state, index) => (
-                <div key={state.state_code} className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <span
-                      className="w-5 h-5 rounded-full text-xs flex items-center justify-center mr-2 font-semibold flex-shrink-0"
-                      style={{ backgroundColor: '#F8F8F8', color: '#1A1A1A' }}
-                    >
-                      {index + 1}
-                    </span>
-                    <span className="text-sm" style={{ color: '#4A5568' }}>{state.state_name}</span>
-                  </div>
-                  <span className="text-sm font-semibold" style={{ color: '#C8102E' }}>{state.adoption_score}%</span>
+          <div style={styles.card}>
+            <h3 style={styles.cardTitle}>Highest Adoption</h3>
+            {topStates.map((state, index) => (
+              <div key={state.state_code} style={styles.rankItem}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <span style={styles.rankNumber}>{index + 1}</span>
+                  <span style={styles.rankName}>{state.state_name}</span>
                 </div>
-              ))}
-            </div>
+                <span style={styles.rankValue}>{state.adoption_score}%</span>
+              </div>
+            ))}
           </div>
 
           {/* Lowest Performers */}
-          <div className="bg-white rounded-lg p-6" style={{ border: '1px solid #E5E7EB', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-            <h3 className="font-semibold mb-5" style={{ color: '#1A1A1A' }}>Lowest Adoption</h3>
-            <div className="space-y-3">
-              {bottomStates.map((state) => (
-                <div key={state.state_code} className="flex items-center justify-between">
-                  <span className="text-sm" style={{ color: '#4A5568' }}>{state.state_name}</span>
-                  <span className="text-sm font-semibold" style={{ color: '#9BAABB' }}>{state.adoption_score}%</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-5 pt-4" style={{ borderTop: '1px solid #F3F4F6' }}>
-              <p className="text-xs leading-relaxed" style={{ color: '#9BAABB' }}>
+          <div style={styles.card}>
+            <h3 style={styles.cardTitle}>Lowest Adoption</h3>
+            {bottomStates.map((state) => (
+              <div key={state.state_code} style={styles.rankItem}>
+                <span style={styles.rankName}>{state.state_name}</span>
+                <span style={styles.rankValueGray}>{state.adoption_score}%</span>
+              </div>
+            ))}
+            <div style={styles.bottomNote}>
+              <p style={styles.noteText}>
                 Lowest adoption regions: Deep South, Rural Midwest.
                 These areas often have higher CVD prevalence and lower access to imaging centers.
               </p>
@@ -266,18 +511,18 @@ function ImplementationLayer() {
       </div>
 
       {/* Insights Section */}
-      <div className="rounded-lg p-8" style={{ backgroundColor: '#F8F8F8', border: '1px solid #E5E7EB' }}>
-        <h3 className="font-semibold mb-5" style={{ color: '#1A1A1A' }}>Key Insights</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm" style={{ color: '#4A5568' }}>
+      <div style={styles.insightsBox}>
+        <h3 style={styles.insightsTitle}>Key Insights</h3>
+        <div style={styles.insightsGrid}>
           {[
             'States with coverage mandates (CA, MA) show 2x higher adoption rates on average',
-            'Areas with highest CVD prevalence often have lowest CAC adoption — an opportunity gap',
-            'Texas leads adoption despite lack of mandate — driven by major health systems',
+            'Areas with highest CVD prevalence often have lowest CAC adoption - an opportunity gap',
+            'Texas leads adoption despite lack of mandate - driven by major health systems',
             'Minnesota\'s high adoption correlates with strong integrated health system presence'
           ].map((insight, i) => (
-            <div key={i} className="flex items-start space-x-3">
-              <div className="flex-shrink-0 mt-0.5 w-4 h-4 rounded-full flex items-center justify-center" style={{ backgroundColor: '#C8102E' }}>
-                <svg className="w-2.5 h-2.5" fill="white" viewBox="0 0 20 20">
+            <div key={i} style={styles.insightItem}>
+              <div style={styles.insightIcon}>
+                <svg width="10" height="10" fill="white" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
